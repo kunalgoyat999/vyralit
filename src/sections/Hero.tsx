@@ -191,8 +191,9 @@ const Hero = () => {
           color: "#fff",
           position: "relative",
           height: "70vh",
-          px: 8,
-          py: 5,
+          width: "100vw",           // Take full screen width
+          paddingTop: 5,
+          paddingBottom: 5,
         }}
       >
         {/* Diagonal Bars */}
