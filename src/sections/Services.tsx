@@ -72,7 +72,7 @@ const services = [
 const Services = () => {
   return (
     <div style={{ padding: "2rem 15rem 0rem 15rem" }}>
-      <Typography variant="h4" gutterBottom fontSize={50}>
+      <Typography variant="h4" gutterBottom  sx={{fontSize: '50'}}>
         <span
           style={{
             textDecorationLine: "underline",
@@ -85,7 +85,7 @@ const Services = () => {
         </span>{" "}
         WE DO
       </Typography>
-      <Typography variant="subtitle1" sx={{ mb: 8 }} fontSize={18}>
+      <Typography  sx={{fontSize:{sm:18} }}>
         We bring performance, creativity, and connection under one roof. Here's
         how we <i>Vyral It</i>
       </Typography>
@@ -191,7 +191,7 @@ const Services = () => {
                   {service.title}
                 </Typography>
                 {service.subtitle && (
-                  <Typography fontSize="17px" color="text.secondary" mt={0.5}>
+                  <Typography sx={{ fontSize:"17px", color:"text.secondary", mt:0.5}}>
                     {service.subtitle}
                   </Typography>
                 )}
@@ -202,13 +202,13 @@ const Services = () => {
 
         <Typography
           variant="h3"
-          fontWeight="bold"
           sx={{
             mt: 8,
             mb: 8,
             color: "#FFE3ED",
             textTransform: "uppercase",
             fontSize: "90px",
+            fontWeight:"bold"
           }}
         >
           YOU NAME IT WE DO IT

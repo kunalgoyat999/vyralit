@@ -65,7 +65,7 @@ const Header = () => {
           <span style={{ fontSize: isSticky ? 16 : 22 }}>V</span>YRALIT
         </Typography>
       </Box>
-      <Box display="flex" gap={3}>
+      <Box sx={{ display: "flex", gap: 3 }}>
         {navItems.map(({ label, target }) => (
           <Typography
             key={label}
@@ -132,14 +132,16 @@ const SlantedBanner = ({ angle = -15, light = false }) => {
         {repeatedItems.map((text, i) => (
           <Box
             key={i}
-            display="flex"
-            alignItems="center"
-            gap={1}
-            flexDirection={"row"}
-            justifyContent={"space-evenly"}
-            width="100%"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+              width: "100%",
+            }}
           >
-            <Typography variant="caption" fontSize={"1rem"}>
+            <Typography variant="caption" sx={{fontSize:"1rem"}} >
               {text}
             </Typography>
             <Box
@@ -181,6 +183,7 @@ const Hero = () => {
       sx={{
         margin: 0,
         overflow: "hidden",
+        width: "100%",
       }}
     >
       <Header />
@@ -191,6 +194,7 @@ const Hero = () => {
           color: "#fff",
           position: "relative",
           height: "70vh",
+          
           px: 8,
           py: 5,
         }}
@@ -207,7 +211,7 @@ const Hero = () => {
           >
             Let Your Brand
           </Typography>
-          <Typography variant="h2" fontSize={"5rem"} fontWeight={550}>
+          <Typography variant="h2" sx={{ fontSize: "5rem", fontWeight: 550 }}>
             Go{" "}
             <span style={{ color: "#ff4081" }}>
               {boldTextArr[currentWordIndex]}
@@ -215,10 +219,12 @@ const Hero = () => {
           </Typography>
           <Typography
             variant="h6"
-            mt={2}
-            fontSize={"2rem"}
-            width={"30%"}
-            mb={4}
+            sx={{
+              mt: 2,
+              fontSize: "2rem",
+              width: "30%",
+              mb: 4,
+            }}
           >
             We Help You Grow Where It Matters Most.
           </Typography>
