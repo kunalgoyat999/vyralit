@@ -65,16 +65,15 @@ const ProcessSteps = () => {
   return (
     <>
       <Box
-
         sx={{
-  backgroundColor: "#FFEFF4",
-  padding: {
-    xs: "4rem 2rem 4rem 2rem",    // mobile
-    sm: "6rem 4rem 6rem 4rem",    // small tablet
-    md: "8rem 8rem 8rem 8rem",    // tablet/desktop
-    lg: "8rem 15rem 8rem 15rem"   // large desktop
-  }
-}}       
+          backgroundColor: "#FFEFF4",
+          padding: {
+            xs: "4rem 2rem 4rem 2rem", // mobile
+            sm: "6rem 4rem 6rem 4rem", // small tablet
+            md: "8rem 8rem 8rem 8rem", // tablet/desktop
+            lg: "8rem 15rem 8rem 15rem", // large desktop
+          },
+        }}
       >
         <Typography
           variant="h4"
@@ -86,15 +85,23 @@ const ProcessSteps = () => {
         >
           <span
             style={{
-              textDecorationLine: "underline",
+              textDecorationLine: isMobile ? "none": "underline",
               textDecorationColor: "black",
-              textDecorationThickness: "2px",
-              textUnderlineOffset: "4px",
+              textDecorationThickness: "1.5px",
+              textUnderlineOffset: "12px",
             }}
           >
             HOW
           </span>{" "}
-          WE WORK TOGETHER
+          WE WORK <span
+            style={{
+              textDecorationLine: isMobile ? "underline" :  "none",
+              textDecorationColor: "black",
+              textDecorationThickness: "1.5px",
+              textUnderlineOffset: "12px",
+              
+            }}
+          >TOGETHER</span>
         </Typography>
 
         {/* Steps Container */}
@@ -122,7 +129,6 @@ const ProcessSteps = () => {
               V
             </Box>
           )}
-          
 
           {/* Steps */}
           <Box
@@ -170,7 +176,7 @@ const ProcessSteps = () => {
                       activeStep === step.key ? "#FFE0EE" : "transparent",
                     textAlign: "left",
                     transition: "all 0.3s ease",
-                    '&:hover': {
+                    "&:hover": {
                       border: "1px solid #FF217D",
                       backgroundColor: "#FFE0EE",
                     },
@@ -185,7 +191,7 @@ const ProcessSteps = () => {
                       mb: 2,
                     }}
                   >
-                    • {step.label}
+                    {step.label}
                   </Typography>
                   <Typography
                     variant="body2"
@@ -194,7 +200,7 @@ const ProcessSteps = () => {
                       lineHeight: 1.6,
                     }}
                   >
-                    • {step.description}
+                    {step.description}
                   </Typography>
                 </Paper>
               </Box>
@@ -222,7 +228,6 @@ const ProcessSteps = () => {
             color: "#FAD4E4",
             letterSpacing: 5,
             fontSize: { xs: 40, sm: 70, md: 110, lg: 135 },
-            py: 10,
           }}
         >
           LETS VYRAL IT
