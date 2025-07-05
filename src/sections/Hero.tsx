@@ -175,10 +175,10 @@ const Hero = () => {
           backgroundColor: "#000",
           color: "#fff",
           position: "relative",
-          height: { xs: "100vh", md: "70vh" },
-          px: { xs: 3, md: 8 },
-          py: { xs: 6, md: 5 },
-          overflow: "hidden",
+          height: "70vh",
+          width: "100vw",           // Take full screen width
+          paddingTop: 5,
+          paddingBottom: 5,
         }}
       >
         {/* Diagonal Banners */}
