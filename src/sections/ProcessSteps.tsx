@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { Box, Typography, Grid, Paper } from "@mui/material";
+import { Box, Typography, Paper, useMediaQuery } from "@mui/material";
 import { keyframes } from "@emotion/react";
+import { useTheme } from "@mui/material/styles";
 
 const ProcessSteps = () => {
   const [activeStep, setActiveStep] = useState("analyse");
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const scrollLeft = keyframes`
     0% { transform: translateX(100%); }
@@ -14,27 +17,30 @@ const ProcessSteps = () => {
     {
       key: "analyse",
       label: "Analyse",
+      stepNumber: "Step 1",
       description: (
         <>
           <span style={{ color: "#FF217D", fontWeight: 600 }}>
-            Not just numbers
-          </span>
-          . We look at the story behind them, what’s been tried, what’s been
-          missed, and what data holds{" "}
-          <span style={{ color: "black", fontWeight: 600 }}>potential</span>.
+            Not just numbers.
+          </span>{" "}
+          We look at the story behind them, what's been tried, what's been
+          missed, and what still holds:{" "}
+          <span style={{ color: "black", fontWeight: 600 }}>potential</span>
         </>
       ),
     },
     {
       key: "plan",
       label: "Plan",
+      stepNumber: "Step 2",
       description: (
         <>
           With your{" "}
           <span style={{ color: "black", fontWeight: 600 }}>goals</span> in
-          focus and your journey in mind,{" "}
+          focus and your journey in mind, we build a strategy that fits your
+          pace{" "}
           <span style={{ color: "#FF217D", fontWeight: 600 }}>
-            we build a strategy that fits your pace—not a template.
+            —not a template.
           </span>
         </>
       ),
@@ -42,12 +48,13 @@ const ProcessSteps = () => {
     {
       key: "execute",
       label: "Execute",
+      stepNumber: "Step 3",
       description: (
         <>
           <span style={{ color: "#FF217D", fontWeight: 600 }}>
             Consistently, and with care.
           </span>{" "}
-          Growth isn’t overnight—we show up every day to move{" "}
+          Growth isn't overnight—we show up every day to move{" "}
           <span style={{ color: "black", fontWeight: 600 }}>forward</span> with
           you.
         </>
@@ -58,11 +65,16 @@ const ProcessSteps = () => {
   return (
     <>
       <Box
+
         sx={{
-          backgroundColor: "#FFEFF4",
-          px: { xs: 2, sm: 4, md: 8, lg: 15 },
-          pt: { xs: 4, sm: 6, md: 8 },
-        }}
+  backgroundColor: "#FFEFF4",
+  padding: {
+    xs: "4rem 2rem 4rem 2rem",    // mobile
+    sm: "6rem 4rem 6rem 4rem",    // small tablet
+    md: "8rem 8rem 8rem 8rem",    // tablet/desktop
+    lg: "8rem 15rem 8rem 15rem"   // large desktop
+  }
+}}       
       >
         <Typography
           variant="h4"
@@ -85,73 +97,110 @@ const ProcessSteps = () => {
           WE WORK TOGETHER
         </Typography>
 
-        <Grid container spacing={4} justifyContent="center">
-          {/* Decorative V */}
-          <Grid item xs={12} sm={2} textAlign="center">
+        {/* Steps Container */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: isMobile ? "column" : "row",
+            gap: 4,
+            alignItems: "flex-start",
+          }}
+        >
+          {/* V Symbol - only shown in desktop */}
+          {!isMobile && (
             <Box
               sx={{
-                fontSize: { xs: 80, sm: 150, md: 200 },
+                fontSize: 200,
                 fontWeight: "bold",
                 lineHeight: 1,
                 color: "transparent",
                 WebkitTextStroke: "1px black",
+                mr: 4,
+                mt: 2,
               }}
             >
               V
             </Box>
-          </Grid>
+          )}
+          
 
           {/* Steps */}
-          {steps.map((step, index) => (
-            <Grid item xs={12} sm={10} md={3} key={step.key}>
-              <Typography
-                variant="body2"
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: isMobile ? "column" : "row",
+              gap: 4,
+              flex: 1,
+            }}
+          >
+            {steps.map((step) => (
+              <Box
+                key={step.key}
                 sx={{
-                  color: activeStep === step.key ? "#FF217D" : "transparent",
-                  fontWeight: 600,
-                  fontSize: 12,
-                  ml: 1.5,
-                  mb: 1,
-                  height: "20px",
-                }}
-              >
-                {activeStep === step.key ? `Step ${index + 1}` : " "}
-              </Typography>
-
-              <Paper
-                onClick={() => setActiveStep(step.key)}
-                onMouseEnter={() => setActiveStep(step.key)}
-                elevation={0}
-                sx={{
-                  cursor: "pointer",
-                  border:
-                    activeStep === step.key
-                      ? "1px solid #FF217D"
-                      : "1px solid transparent",
-                  borderRadius: 2,
-                  p: 2,
-                  backgroundColor:
-                    activeStep === step.key ? "#FFE0EE" : "transparent",
-                  textAlign: "left",
-                  transition: "all 0.3s ease",
-                  height: "100%",
+                  flex: 1,
+                  position: "relative",
                 }}
               >
                 <Typography
-                  variant="h6"
-                  fontSize={20}
-                  color="black"
-                  gutterBottom
+                  variant="body2"
+                  sx={{
+                    color: activeStep === step.key ? "#FF217D" : "transparent",
+                    fontWeight: 600,
+                    fontSize: 12,
+                    mb: 1,
+                    ml: 2,
+                    height: "20px",
+                  }}
                 >
-                  {step.label}
+                  {activeStep === step.key ? step.stepNumber : " "}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {step.description}
-                </Typography>
-              </Paper>
-            </Grid>
-          ))}
-        </Grid>
+                <Paper
+                  onClick={() => setActiveStep(step.key)}
+                  onMouseEnter={() => setActiveStep(step.key)}
+                  elevation={0}
+                  sx={{
+                    cursor: "pointer",
+                    border:
+                      activeStep === step.key
+                        ? "1px solid #FF217D"
+                        : "1px solid transparent",
+                    borderRadius: 2,
+                    p: 3,
+                    backgroundColor:
+                      activeStep === step.key ? "#FFE0EE" : "transparent",
+                    textAlign: "left",
+                    transition: "all 0.3s ease",
+                    '&:hover': {
+                      border: "1px solid #FF217D",
+                      backgroundColor: "#FFE0EE",
+                    },
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontSize: 20,
+                      color: "black",
+                      fontWeight: 600,
+                      mb: 2,
+                    }}
+                  >
+                    • {step.label}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: "text.secondary",
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    • {step.description}
+                  </Typography>
+                </Paper>
+              </Box>
+            ))}
+          </Box>
+        </Box>
       </Box>
 
       {/* Marquee Section */}
@@ -173,8 +222,7 @@ const ProcessSteps = () => {
             color: "#FAD4E4",
             letterSpacing: 5,
             fontSize: { xs: 40, sm: 70, md: 110, lg: 135 },
-            mt: 10,
-            mb: 10,
+            py: 10,
           }}
         >
           LETS VYRAL IT
