@@ -4,14 +4,12 @@ import { keyframes } from "@emotion/react";
 
 const ProcessSteps = () => {
   const [activeStep, setActiveStep] = useState("analyse");
+
   const scrollLeft = keyframes`
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-`;
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  `;
+
   const steps = [
     {
       key: "analyse",
@@ -56,12 +54,24 @@ const ProcessSteps = () => {
       ),
     },
   ];
+
   return (
     <>
       <Box
-        sx={{ backgroundColor: "#FFEFF4", padding: "5rem 15rem 0rem 15rem" }}
+        sx={{
+          backgroundColor: "#FFEFF4",
+          px: { xs: 2, sm: 4, md: 8, lg: 15 },
+          pt: { xs: 4, sm: 6, md: 8 },
+        }}
       >
-        <Typography variant="h4" gutterBottom fontSize={50}>
+        <Typography
+          variant="h4"
+          gutterBottom
+          sx={{
+            fontSize: { xs: 28, sm: 36, md: 50 },
+            mb: 4,
+          }}
+        >
           <span
             style={{
               textDecorationLine: "underline",
@@ -75,24 +85,12 @@ const ProcessSteps = () => {
           WE WORK TOGETHER
         </Typography>
 
-        <Grid
-          container
-          spacing={4}
-          justifyContent="center"
-          alignItems="flex-start"
-        >
-          <Grid
-            item
-            size={3}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+        <Grid container spacing={4} justifyContent="center">
+          {/* Decorative V */}
+          <Grid item xs={12} sm={2} textAlign="center">
             <Box
               sx={{
-                fontSize: 200,
+                fontSize: { xs: 80, sm: 150, md: 200 },
                 fontWeight: "bold",
                 lineHeight: 1,
                 color: "transparent",
@@ -103,36 +101,25 @@ const ProcessSteps = () => {
             </Box>
           </Grid>
 
+          {/* Steps */}
           {steps.map((step, index) => (
-            <Grid size={3} key={step.key}>
-              {activeStep === step.key ? (
-                <Typography
-                  variant="body2"
-                  sx={{
-                    color: "#FF217D",
-                    fontWeight: 600,
-                    fontSize: 12,
-                    marginLeft: "15px",
-                    mb: "5px",
-                  }}
-                >
-                  Step {index + 1}
-                </Typography>
-              ) : (
-                <Typography
-                  variant="body2"
-                  sx={{
-                    visibility: "hidden",
-                    fontSize: 12,
-                    marginLeft: "15px",
-                    mb: "5px",
-                  }}
-                >
-                  Step {index + 1}
-                </Typography>
-              )}
+            <Grid item xs={12} sm={10} md={3} key={step.key}>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: activeStep === step.key ? "#FF217D" : "transparent",
+                  fontWeight: 600,
+                  fontSize: 12,
+                  ml: 1.5,
+                  mb: 1,
+                  height: "20px",
+                }}
+              >
+                {activeStep === step.key ? `Step ${index + 1}` : " "}
+              </Typography>
+
               <Paper
-                onClick={() => setActiveStep(step.key)} // <-- Click handler
+                onClick={() => setActiveStep(step.key)}
                 onMouseEnter={() => setActiveStep(step.key)}
                 elevation={0}
                 sx={{
@@ -140,18 +127,19 @@ const ProcessSteps = () => {
                   border:
                     activeStep === step.key
                       ? "1px solid #FF217D"
-                      : "0px solid #ccc", // <-- Highlighting border
+                      : "1px solid transparent",
                   borderRadius: 2,
                   p: 2,
                   backgroundColor:
-                    activeStep === step.key ? "#FFE0EE" : "transparent", // <-- Highlighting background
+                    activeStep === step.key ? "#FFE0EE" : "transparent",
                   textAlign: "left",
                   transition: "all 0.3s ease",
+                  height: "100%",
                 }}
               >
                 <Typography
                   variant="h6"
-                  fontSize={24}
+                  fontSize={20}
                   color="black"
                   gutterBottom
                 >
@@ -159,20 +147,20 @@ const ProcessSteps = () => {
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   {step.description}
-                  {step.highlight && <b>{step.highlight}</b>}
                 </Typography>
               </Paper>
             </Grid>
           ))}
         </Grid>
       </Box>
+
+      {/* Marquee Section */}
       <Box
         sx={{
           overflow: "hidden",
           whiteSpace: "nowrap",
           position: "relative",
           width: "100%",
-
           backgroundColor: "#FFEFF4",
         }}
       >
@@ -181,10 +169,10 @@ const ProcessSteps = () => {
           fontWeight="bold"
           sx={{
             display: "inline-block",
-            animation: `${scrollLeft} 5s linear infinite`,
+            animation: `${scrollLeft} 7s linear infinite`,
             color: "#FAD4E4",
             letterSpacing: 5,
-            fontSize: 135,
+            fontSize: { xs: 40, sm: 70, md: 110, lg: 135 },
             mt: 10,
             mb: 10,
           }}

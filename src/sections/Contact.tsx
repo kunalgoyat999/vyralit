@@ -6,6 +6,8 @@ import {
   Paper,
   TextField,
   IconButton,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import CallIcon from "@mui/icons-material/Call";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -14,6 +16,9 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Button from "../components/ui/Button";
 
 const ContactSection = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   const [formData, setFormData] = useState({
     name: "",
     mail: "",
@@ -47,11 +52,22 @@ const ContactSection = () => {
   };
 
   return (
-    <Box sx={{ bgcolor: "#fff", p: "4rem 15rem 5rem 15rem" }}>
+    <Box
+      sx={{
+        bgcolor: "#fff",
+        px: { xs: "1rem", sm: "2rem", md: "10rem" },
+        py: { xs: "2rem", sm: "3rem", md: "5rem" },
+      }}
+    >
       <Typography
         variant="h4"
         fontWeight="bold"
-        sx={{ mb: 3, textTransform: "uppercase", color: "#1c2c40" }}
+        sx={{
+          mb: 3,
+          textTransform: "uppercase",
+          color: "#1c2c40",
+          fontSize: { xs: "1.8rem", sm: "2.2rem", md: "2.5rem" },
+        }}
       >
         <span
           style={{
@@ -71,15 +87,15 @@ const ContactSection = () => {
         sx={{
           color: "#1c2c40",
           mb: 6,
+          fontSize: { xs: "0.9rem", sm: "1rem" },
         }}
       >
         Let's Create Something Extraordinary Together.
       </Typography>
 
-      <Grid container spacing={4} flex={1}>
-        {/* Left Contact Info Card */}
-        {/* <Box sx={{backgroundColor: 'red'}}> */}
-        <Grid item xs={12} md={5} width={"65%"} flex={1.2}>
+      <Grid container spacing={4}>
+        {/* Left Info Box */}
+        <Grid item xs={12} md={5}>
           <Paper
             elevation={3}
             sx={{
@@ -127,20 +143,21 @@ const ContactSection = () => {
                 gap={2}
                 mb={4}
               >
-                <IconButton disableRipple sx={{ p: 0 }}>
-                  {icon}
-                </IconButton>
+                <IconButton disableRipple sx={{ p: 0 }}>{icon}</IconButton>
                 <Typography variant="body2">{text}</Typography>
               </Box>
             ))}
           </Paper>
         </Grid>
-        {/* </Box> */}
 
-        {/* Right Form Side */}
-        <Grid item xs={12} md={7} flex={2.5}>
-          <Box display="flex" flexDirection="column" gap={2}>
-            <Box display="flex" gap={15}>
+        {/* Right Form Box */}
+        <Grid item xs={12} md={7}>
+          <Box display="flex" flexDirection="column" gap={3}>
+            <Box
+              display="flex"
+              flexDirection={{ xs: "column", sm: "row" }}
+              gap={{ xs: 2, sm: 4 }}
+            >
               <TextField
                 fullWidth
                 label="Name"
@@ -148,7 +165,6 @@ const ContactSection = () => {
                 variant="standard"
                 value={formData.name}
                 onChange={handleChange}
-                sx={{ flex: 1 }}
                 InputLabelProps={{ shrink: true }}
               />
               <TextField
@@ -158,34 +174,33 @@ const ContactSection = () => {
                 variant="standard"
                 value={formData.mail}
                 onChange={handleChange}
-                sx={{ flex: 1, mb: 4 }}
                 InputLabelProps={{ shrink: true }}
               />
             </Box>
-            <Box>
-              <TextField
-                fullWidth
-                label="Phone"
-                name="phone"
-                variant="standard"
-                value={formData.phone}
-                onChange={handleChange}
-                sx={{ flex: 1, mb: 6 }}
-                InputLabelProps={{ shrink: true }}
-              />
-              <TextField
-                fullWidth
-                label="Message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                variant="standard"
-                placeholder="Write your message..."
-                InputLabelProps={{ shrink: true }}
-                sx={{ mb: 10 }}
-              />
-            </Box>
-            <Box display="flex" justifyContent="flex-end">
+
+            <TextField
+              fullWidth
+              label="Phone"
+              name="phone"
+              variant="standard"
+              value={formData.phone}
+              onChange={handleChange}
+              InputLabelProps={{ shrink: true }}
+            />
+            <TextField
+              fullWidth
+              label="Message"
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              variant="standard"
+              placeholder="Write your message..."
+              InputLabelProps={{ shrink: true }}
+              multiline
+              minRows={3}
+              sx={{ mb: 2 }}
+            />
+            <Box display="flex" justifyContent={{ xs: "center", sm: "flex-end" }}>
               <Button onClick={handleSubmit}>
                 Book your Free Strategy Call
               </Button>

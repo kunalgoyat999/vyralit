@@ -3,15 +3,17 @@ import Button from "../components/ui/Button";
 import { Box, Typography, keyframes } from "@mui/material";
 import brandImage from "../assets/brandLogo/VyralIt.png";
 
-const scrollTo = (id) => {
+// Smooth scroll utility
+const scrollTo = (id: any) => {
   const el = document.getElementById(id);
   if (el) {
-    const offset = 120; // adjust to your header height
+    const offset = 120;
     const y = el.getBoundingClientRect().top + window.scrollY - offset;
     window.scrollTo({ top: y, behavior: "smooth" });
   }
 };
 
+// ---------- Header Component ----------
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
   const navItems = [
@@ -24,12 +26,8 @@ const Header = () => {
     const handleScroll = () => {
       setIsSticky(window.scrollY > 0);
     };
-
     window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -46,22 +44,13 @@ const Header = () => {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        p: "1rem 8rem 0.5rem 8rem",
+        p: { xs: "1rem 1.5rem", md: "1rem 8rem 0.5rem 8rem" },
         boxSizing: "border-box",
       }}
     >
-      <Box
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-      >
-        <img
-          src={brandImage}
-          style={{ height: isSticky ? 35 : 42 }}
-          // style={clientsStyles.logoItem}
-        />
-        <Typography
-          variant="caption"
-          sx={{ letterSpacing: "2px", fontSize: 12 }}
-        >
+      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <img src={brandImage} style={{ height: isSticky ? 35 : 42 }} />
+        <Typography variant="caption" sx={{ letterSpacing: "2px", fontSize: 12 }}>
           <span style={{ fontSize: isSticky ? 16 : 22 }}>V</span>YRALIT
         </Typography>
       </Box>
@@ -81,51 +70,47 @@ const Header = () => {
   );
 };
 
+// ---------- SlantedBanner Component ----------
 const SlantedBanner = ({ angle = -15, light = false }) => {
   const items = [
-    "PERFORMANCE",
-    "GROWTH",
-    "SEO",
-    "DESIGN",
-    "SOCIAL",
-    "BRNDING",
-    "PERFORMANCE",
-    "GROWTH",
-    "SEO",
-    "DESIGN",
-    "SOCIAL",
-    "BRNDING",
+    "MARKETING",
+    "MOTION",
+    "UI/UX",
+    "STRATEGY",
+    "CONTENT",
+    "BRANDING",
+    "MARKETING",
+    "MOTION",
   ];
-  const scroll = keyframes` 0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }`;
-  const repeatedItems = [...items, ...items, ...items, ...items, ...items];
+  const scroll = keyframes`
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+  `;
+  const repeatedItems = [...items, ...items, ...items];
 
   return (
     <Box
       sx={{
         position: "absolute",
-        top: light ? "-8%" : "60%",
-        right: light ? "-20%" : "-10%",
-        width: light ? "110%" : "120%",
+        top: light ? { xs: "25%", md: "-8%" } : { xs: "60%", md: "60%" },
+        left: light ? { xs: "-120%", md: "-20%" } : { xs: "-120%", md: "-10%" },
+        width: { xs: "300%", md: light ? "110%" : "120%" },
         transform: `rotate(${angle}deg)`,
         backgroundColor: light ? "#fff" : "#222",
         color: light ? "#000" : "#fff",
         display: "flex",
-        justifyContent: "space-around",
+        justifyContent: "center",
         alignItems: "center",
-        py: 3,
+        py: { xs: 1, md: 3 },
         zIndex: light ? 1 : 2,
+        overflow: "hidden",
       }}
     >
       <Box
         sx={{
           display: "inline-flex",
-          animation: `${scroll} 10s linear infinite`,
-          gap: 4, // spacing between items
+          animation: `${scroll} 12s linear infinite`,
+          gap: 4,
           minWidth: "100%",
         }}
       >
@@ -135,11 +120,15 @@ const SlantedBanner = ({ angle = -15, light = false }) => {
             display="flex"
             alignItems="center"
             gap={1}
-            flexDirection={"row"}
-            justifyContent={"space-evenly"}
+            flexDirection="row"
+            justifyContent="space-evenly"
             width="100%"
           >
-            <Typography variant="caption" fontSize={"1rem"}>
+            <Typography
+              variant="caption"
+              fontSize={"1rem"}
+              sx={{ whiteSpace: "nowrap" }}
+            >
               {text}
             </Typography>
             <Box
@@ -157,16 +146,10 @@ const SlantedBanner = ({ angle = -15, light = false }) => {
   );
 };
 
+
+// ---------- Hero Section ----------
 const Hero = () => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentWordIndex((prev) => (prev + 1) % boldTextArr.length);
-    }, 3000); // every 2 seconds
-
-    return () => clearInterval(interval); // cleanup
-  }, []);
   const boldTextArr = [
     "Vyral",
     "Strong",
@@ -176,13 +159,15 @@ const Hero = () => {
     "Forward",
   ];
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentWordIndex((prev) => (prev + 1) % boldTextArr.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <Box
-      sx={{
-        margin: 0,
-        overflow: "hidden",
-      }}
-    >
+    <Box sx={{ margin: 0, overflow: "hidden" }}>
       <Header />
 
       <Box
@@ -190,24 +175,41 @@ const Hero = () => {
           backgroundColor: "#000",
           color: "#fff",
           position: "relative",
-          height: "70vh",
-          px: 8,
-          py: 5,
+          height: { xs: "100vh", md: "70vh" },
+          px: { xs: 3, md: 8 },
+          py: { xs: 6, md: 5 },
+          overflow: "hidden",
         }}
       >
-        {/* Diagonal Bars */}
+        {/* Diagonal Banners */}
         <SlantedBanner light={true} angle={35} />
-        <SlantedBanner light={false} angle={-18} />
+<SlantedBanner light={false} angle={-18} />
 
-        {/* Text Content */}
-        <Box sx={{ position: "relative", zIndex: 3, paddingLeft: "4rem" }}>
+        {/* Hero Text */}
+        <Box
+          sx={{
+            position: "relative",
+            zIndex: 3,
+            paddingLeft: { xs: 0, md: "4rem" },
+            textAlign: { xs: "center", md: "left" },
+            mt: { xs: 8, md: 0 },
+          }}
+        >
           <Typography
             variant="h2"
-            sx={{ fontWeight: 400, color: "#888", fontSize: "6rem" }}
+            sx={{
+              fontWeight: 400,
+              color: "#888",
+              fontSize: { xs: "2.5rem", md: "6rem" },
+            }}
           >
             Let Your Brand
           </Typography>
-          <Typography variant="h2" fontSize={"5rem"} fontWeight={550}>
+          <Typography
+            variant="h2"
+            fontWeight={550}
+            fontSize={{ xs: "2.5rem", md: "5rem" }}
+          >
             Go{" "}
             <span style={{ color: "#ff4081" }}>
               {boldTextArr[currentWordIndex]}
@@ -216,14 +218,16 @@ const Hero = () => {
           <Typography
             variant="h6"
             mt={2}
-            fontSize={"2rem"}
-            width={"30%"}
+            fontSize={{ xs: "1.2rem", md: "2rem" }}
+            width={{ xs: "100%", md: "30%" }}
             mb={4}
           >
             We Help You Grow Where It Matters Most.
           </Typography>
 
-          <Button onClick={() => scrollTo("contact")}>Work With Us</Button>
+          <Box display="flex" justifyContent={{ xs: "center", md: "flex-start" }}>
+            <Button onClick={() => scrollTo("contact")}>Work With Us</Button>
+          </Box>
         </Box>
       </Box>
     </Box>
@@ -231,3 +235,4 @@ const Hero = () => {
 };
 
 export default Hero;
+

@@ -71,8 +71,17 @@ const services = [
 
 const Services = () => {
   return (
-    <div style={{ padding: "2rem 15rem 0rem 15rem" }}>
-      <Typography variant="h4" gutterBottom fontSize={50}>
+    <Box
+      sx={{
+        px: { xs: 2, sm: 4, md: 8, lg: 15 },
+        pt: { xs: 4, sm: 5, md: 6 },
+      }}
+    >
+      <Typography
+        variant="h4"
+        gutterBottom
+        sx={{ fontSize: { xs: 28, sm: 40, md: 50 } }}
+      >
         <span
           style={{
             textDecorationLine: "underline",
@@ -85,11 +94,30 @@ const Services = () => {
         </span>{" "}
         WE DO
       </Typography>
-      <Typography variant="subtitle1" sx={{ mb: 8 }} fontSize={18}>
+      <Typography
+        variant="subtitle1"
+        sx={{ mb: 6, fontSize: { xs: 14, sm: 16, md: 18 } }}
+      >
         We bring performance, creativity, and connection under one roof. Here's
         how we <i>Vyral It</i>
       </Typography>
-      <Box sx={{ position: "relative" }}>
+
+      {/* Background Lines */}
+      <Box
+        sx={{
+          position: "relative",
+          "&::before": {
+            content: '""',
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            zIndex: 1,
+            pointerEvents: "none",
+          },
+        }}
+      >
         <Box
           sx={{
             position: "absolute",
@@ -97,7 +125,7 @@ const Services = () => {
             left: 0,
             width: "100%",
             height: "100%",
-            zIndex: -1, // lower than cards (cards use zIndex: 99)
+            zIndex: 0,
             pointerEvents: "none",
           }}
         >
@@ -109,47 +137,54 @@ const Services = () => {
                 top: `${(i + 1) * (200 / 5)}px`,
                 left: 0,
                 width: "100%",
-                height: ".09px",
+                height: "0.09px",
                 backgroundColor: "#E7E7E7",
               }}
             />
           ))}
         </Box>
 
+        {/* Cards */}
         <Box
           sx={{
             display: "flex",
-            flexWrap: "wrap", // allows boxes to wrap to next line
+            flexWrap: "wrap",
             justifyContent: "center",
-            gap: 16,
-            rowGap: 15,
+            gap: { xs: 4, md: 6 },
+            rowGap: { xs: 4, md: 6 },
             position: "relative",
-            zIndex: 99,
+            zIndex: 2,
           }}
         >
           {services.map((service, index) => (
             <Box
               key={index}
               sx={{
-                width: 220,
+                flexBasis: {
+                  xs: "100%",
+                  sm: "45%",
+                  md: "30%",
+                  lg: "220px",
+                },
                 height: 200,
                 borderRadius: 3,
                 p: 2,
-                textAlign: "left",
                 transform: `rotate(${service.rotateBox})`,
                 boxShadow: "1px 2px 15px rgba(0,0,0,0.2)",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
                 position: "relative",
-                zIndex: 2,
                 backgroundColor: "#fff",
               }}
             >
+              {/* Circles */}
               <Box
                 sx={{
+                  position: "relative",
                   left: "50%",
                   transform: "translateX(-50%)",
+                  mb: 1,
                 }}
               >
                 <Box
@@ -173,6 +208,8 @@ const Services = () => {
                   }}
                 />
               </Box>
+
+              {/* Content Box */}
               <Box
                 sx={{
                   width: "100%",
@@ -185,13 +222,21 @@ const Services = () => {
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
+                  px: 1,
                 }}
               >
-                <Typography fontWeight="bold" fontSize="17px">
+                <Typography
+                  fontWeight="bold"
+                  fontSize={{ xs: "15px", sm: "16px", md: "17px" }}
+                >
                   {service.title}
                 </Typography>
                 {service.subtitle && (
-                  <Typography fontSize="17px" color="text.secondary" mt={0.5}>
+                  <Typography
+                    fontSize={{ xs: "13px", sm: "14px", md: "15px" }}
+                    color="text.secondary"
+                    mt={0.5}
+                  >
                     {service.subtitle}
                   </Typography>
                 )}
@@ -200,6 +245,7 @@ const Services = () => {
           ))}
         </Box>
 
+        {/* Footer Text */}
         <Typography
           variant="h3"
           fontWeight="bold"
@@ -208,13 +254,14 @@ const Services = () => {
             mb: 8,
             color: "#FFE3ED",
             textTransform: "uppercase",
-            fontSize: "90px",
+            fontSize: { xs: 32, sm: 48, md: 64, lg: 90 },
+            textAlign: "center",
           }}
         >
           YOU NAME IT WE DO IT
         </Typography>
       </Box>
-    </div>
+    </Box>
   );
 };
 

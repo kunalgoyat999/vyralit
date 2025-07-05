@@ -5,26 +5,36 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import brandImage from "../assets/brandLogo/VyralIt.png";
+
 const Footer = () => {
   return (
     <Box
       sx={{
         backgroundColor: "#000",
         color: "#fff",
+        px: { xs: 3, sm: 6, md: 12 },
+        py: 4,
         display: "flex",
+        flexDirection: { xs: "column", sm: "row" },
         justifyContent: "space-between",
         alignItems: "center",
-        px: 12,
-        py: 2,
+        gap: { xs: 3, sm: 0 },
+        textAlign: { xs: "center", sm: "left" },
       }}
     >
       {/* Logo Section */}
       <Box
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: { xs: "center", sm: "flex-start" },
+          gap: 1,
+        }}
       >
         <img
           src={brandImage}
-          // style={clientsStyles.logoItem}
+          alt="VyralIt"
+          style={{ maxWidth: "100px", height: "auto" }}
         />
         <Typography
           variant="caption"
@@ -35,22 +45,32 @@ const Footer = () => {
       </Box>
 
       {/* Social Section */}
-      <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          flexWrap: "wrap",
+          justifyContent: { xs: "center", sm: "flex-end" },
+          gap: 2,
+        }}
+      >
         <Typography variant="body1" sx={{ fontWeight: "bold" }}>
           FOLLOW US
         </Typography>
-        <IconButton sx={{ color: "#fff", border: "1px solid #fff" }}>
-          <InstagramIcon />
-        </IconButton>
-        <IconButton sx={{ color: "#fff", border: "1px solid #fff" }}>
-          <FacebookIcon />
-        </IconButton>
-        <IconButton sx={{ color: "#fff", border: "1px solid #fff" }}>
-          <YouTubeIcon />
-        </IconButton>
-        <IconButton sx={{ color: "#fff", border: "1px solid #fff" }}>
-          <TwitterIcon />
-        </IconButton>
+        {[InstagramIcon, FacebookIcon, YouTubeIcon, TwitterIcon].map(
+          (Icon, idx) => (
+            <IconButton
+              key={idx}
+              sx={{
+                color: "#fff",
+                border: "1px solid #fff",
+                "&:hover": { backgroundColor: "#222" },
+              }}
+            >
+              <Icon />
+            </IconButton>
+          )
+        )}
       </Box>
     </Box>
   );

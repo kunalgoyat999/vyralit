@@ -112,27 +112,31 @@ const TestimonialCard = ({ text, author }) => (
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-between",
-      width: { xs: "100%", sm: "80%", md: "70%" },
+      width: { xs: "100%", sm: "90%", md: "80%" },
       boxSizing: "border-box",
     }}
   >
     <Box>
       <Typography
-        style={{ fontSize: "12px", marginBottom: "1.5rem", color: "FFB904" }}
+        style={{
+          fontSize: "12px",
+          marginBottom: "1.5rem",
+          color: "#FFB904",
+        }}
       >
-        <span role="img" aria-label="star">
-          ⭐⭐⭐⭐⭐
-        </span>
+        ⭐⭐⭐⭐⭐
       </Typography>
       <Typography
         variant="body2"
-        sx={{ color: "#fff", mb: "1.5rem" }}
-        fontSize={12}
+        sx={{ color: "#fff", mb: "1.5rem", fontSize: { xs: 12, sm: 13 } }}
       >
         {text}
       </Typography>
     </Box>
-    <Typography variant="caption" sx={{ color: "#b0b0b0", fontSize: "10px" }}>
+    <Typography
+      variant="caption"
+      sx={{ color: "#b0b0b0", fontSize: { xs: 10, sm: 11 } }}
+    >
       {author}
     </Typography>
   </Paper>
@@ -147,15 +151,16 @@ const TestimonialsSection = () => {
       sx={{
         backgroundColor: "#000",
         color: "#fff",
-        padding: "5rem 10rem",
+        px: { xs: 2, sm: 6, md: 10 },
+        py: { xs: 6, sm: 8 },
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
-        gap: 4,
+        gap: 6,
         overflow: "hidden",
-        height: "60vh",
+        height: { xs: "auto", md: "60vh" },
       }}
     >
-      {/* Left side - Animated Testimonials */}
+      {/* Animated Columns */}
       <Box
         sx={{
           flex: 1,
@@ -176,7 +181,7 @@ const TestimonialsSection = () => {
         </ScrollColumn>
       </Box>
 
-      {/* Right side - Static Content */}
+      {/* Static Side */}
       <Box
         sx={{
           flex: 1,
@@ -184,6 +189,7 @@ const TestimonialsSection = () => {
           flexDirection: "column",
           justifyContent: "center",
           pl: { md: 4 },
+          mt: { xs: 4, md: 0 },
         }}
       >
         <Typography variant="overline" sx={{ color: "#FAF8F8", mb: 1 }}>
@@ -191,17 +197,28 @@ const TestimonialsSection = () => {
         </Typography>
         <Typography
           variant="h4"
-          sx={{ fontWeight: "bold", color: "#FF217D", lineHeight: 1 }}
+          sx={{
+            fontWeight: "bold",
+            color: "#FF217D",
+            lineHeight: 1,
+            fontSize: { xs: 24, sm: 30, md: 36 },
+          }}
         >
-          Our client like us,
+          Our clients like us,
         </Typography>
-        <Typography variant="h4" sx={{ fontWeight: "bold", mb: 2 }}>
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: "bold",
+            mb: 2,
+            fontSize: { xs: 24, sm: 30, md: 36 },
+          }}
+        >
           and we love them
         </Typography>
         <Typography
           variant="body1"
-          sx={{ color: "#aaa", maxWidth: 400 }}
-          fontSize={20}
+          sx={{ color: "#aaa", maxWidth: 400, fontSize: { xs: 14, sm: 16 } }}
         >
           At Humane, our clients’ satisfaction is our top priority. We take
           pride in the relationships we build and the successes we help create.
@@ -212,16 +229,20 @@ const TestimonialsSection = () => {
           <Typography
             variant="body1"
             component="span"
-            sx={{ fontWeight: "bold", color: "#fff" }}
+            sx={{
+              fontWeight: "bold",
+              color: "#fff",
+              fontSize: { xs: 14, sm: 16 },
+            }}
           >
             4.5
           </Typography>
-          <Typography variant="body2" sx={{ color: "#aaa" }}>
+          <Typography variant="body2" sx={{ color: "#aaa", fontSize: 14 }}>
             from 30+ reviewers
           </Typography>
         </Box>
         <Box>
-          <Typography variant="body2" sx={{ color: "#ffd700" }}>
+          <Typography variant="body2" sx={{ color: "#ffd700", fontSize: 18 }}>
             ⭐⭐⭐⭐⭐
           </Typography>
         </Box>
