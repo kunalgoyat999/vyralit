@@ -19,9 +19,9 @@ function App() {
       <Box id="services">
         <Services />
       </Box> */}
-      <ProcessSteps />
-      {/* <Clients />
-      <Testimonials />
+      {/* <ProcessSteps /> */}
+      <Clients />
+      {/* <Testimonials />
       <Box id="contact">
         <Contact />
       </Box>

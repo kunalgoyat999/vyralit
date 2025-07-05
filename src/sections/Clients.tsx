@@ -1,78 +1,222 @@
+// import React from "react";
+// import brands from "../assets/brands/allBrand.png";
+// import { Typography, useMediaQuery, useTheme, Box } from "@mui/material";
+// import Button from "../components/ui/Button";
+
+// const Clients: React.FC = () => {
+//   const theme = useTheme();
+//   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+//   const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
+
+//   const getPadding = () => {
+//     if (isMobile) return "2rem 1rem";
+//     if (isTablet) return "4rem 4rem";
+//     return "5rem 15rem 0rem 15rem";
+//   };
+
+//   return (
+//     <Box component="section" sx={{ padding: getPadding(), textAlign: "center" }}>
+//       <Typography
+//         variant="h4"
+//         gutterBottom
+//         sx={{
+//           fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
+//           mb: "3rem",
+//         }}
+//       >
+//         <span
+//           style={{
+//             textDecorationLine: "underline",
+//             textDecorationColor: "black",
+//             textDecorationThickness: "2px",
+//             textUnderlineOffset: "10px",
+//           }}
+//         >
+//           BRANDS
+//         </span>{" "}
+//         WE'VE WORKED WITH{" "}
+//       </Typography>
+
+//       <Box
+//         sx={{
+//           display: "grid",
+//           gap: "32px",
+//           gridTemplateColumns: {
+//             xs: "repeat(auto-fit, minmax(100px, 1fr))",
+//             sm: "repeat(auto-fit, minmax(120px, 1fr))",
+//           },
+//           justifyContent: "center",
+//           alignItems: "center",
+//           maxWidth: "1000px",
+//           margin: "0 auto",
+//         }}
+//       >
+//         <Box
+//           component="img"
+//           src={brands}
+//           sx={{
+//             width: "100%",
+//             maxWidth: "100%",
+//             opacity: 0.8,
+//             transition: "all 0.3s ease",
+//             "&:hover": {
+//               opacity: 1,
+//             },
+//           }}
+//           alt="Brands"
+//         />
+//       </Box>
+
+//       <Box sx={{ mt: "3rem", mb: "3rem" }}>
+//         <Button>Do you want to be the next?</Button>
+//       </Box>
+//     </Box>
+//   );
+// };
+
+// export default Clients;
+
 import React from "react";
-import brands from "../assets/brands/allBrand.png";
-import { Typography, useMediaQuery, useTheme, Box } from "@mui/material";
+import { Typography, useMediaQuery, useTheme, Box, Grid } from "@mui/material";
 import Button from "../components/ui/Button";
+import allBrands from "../assets/brands/allBrand.png";
 
-const Clients: React.FC = () => {
+// Mobile brand images
+import b1 from "../assets/brands/b1.png";
+import b2 from "../assets/brands/b2.png";
+import b3 from "../assets/brands/b3.png";
+import b4 from "../assets/brands/b4.png";
+import b5 from "../assets/brands/b5.png";
+
+const Clients = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  const getPadding = () => {
-    if (isMobile) return "2rem 1rem";
-    if (isTablet) return "4rem 4rem";
-    return "5rem 15rem 0rem 15rem";
-  };
+  // Mobile brands data with images
+  const mobileBrands = [
+    { name: "firstcryMAX", image: b1 },
+    { name: "LAKK", image: b2 },
+    { name: "yptel", image: b3 },
+    { name: "Epirone", image: b4 },
+    { name: "Hospitals", image: b5 },
+    // Add more if needed
+  ];
 
   return (
-    <Box component="section" sx={{ padding: getPadding(), textAlign: "center" }}>
-      <Typography
-        variant="h4"
-        gutterBottom
-        sx={{
-          fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
-          mb: "3rem",
-        }}
-      >
-        <span
-          style={{
-            textDecorationLine: "underline",
-            textDecorationColor: "black",
-            textDecorationThickness: "2px",
-            textUnderlineOffset: "10px",
-          }}
-        >
+    <Box sx={{
+      padding: { 
+        xs: "2rem 1rem", 
+        md: "4rem 4rem", 
+        lg: "5rem 8rem" 
+      },
+      maxWidth: "1400px",
+       margin: "0 auto 0 1rem",
+       textAlign:"center"
+    }}>
+      {/* Heading */}
+      <Typography variant="h4" sx={{
+        fontSize: { 
+          xs: "1.8rem", 
+          md: "2.5rem" 
+        },
+        mb: 4,
+        lineHeight: 1.2,
+        fontWeight: 600
+      }}>
+        <span style={{
+          textDecorationLine: "underline",
+          textDecorationColor: "black",
+          textDecorationThickness: "2px",
+          textUnderlineOffset: "8px",
+        }}>
           BRANDS
         </span>{" "}
-        WE'VE WORKED WITH{" "}
+        {isMobile ? (
+          <>
+            WE'VE
+            <br />
+            WORKED WITH
+          </>
+        ) : (
+          "WE'VE WORKED WITH"
+        )}
       </Typography>
 
-      <Box
-        sx={{
-          display: "grid",
-          gap: "32px",
-          gridTemplateColumns: {
-            xs: "repeat(auto-fit, minmax(100px, 1fr))",
-            sm: "repeat(auto-fit, minmax(120px, 1fr))",
-          },
-          justifyContent: "center",
-          alignItems: "center",
-          maxWidth: "1000px",
+      {/* Mobile View - Individual Brand Images */}
+      {isMobile ? (
+        <Grid container spacing={3} sx={{ 
+          maxWidth: "500px",
+          // margin: "0 auto",
+          mb: 4
+        }}>
+          {mobileBrands.map((brand, index) => (
+            <Grid item xs={6} key={index}>
+              <Box sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "100%"
+              }}>
+                <img 
+                  src={brand.image} 
+                  alt={brand.name}
+                  style={{
+                    // height: "60px",
+                    width: "auto",
+                    maxWidth: "100%",
+                    objectFit: "contain",
+                    // marginBottom: "8px"
+                  }}
+                />
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+      ) : (
+        /* Desktop View - Single All Brands Image */
+        <Box sx={{
           margin: "0 auto",
+          mb: 4,
+          maxWidth: "900px",
+          '&:hover img': {
+            transform: "scale(1.02)"
+          }
+        }}>
+          <img 
+            src={allBrands} 
+            alt="All partner brands" 
+            style={{
+              width: "100%",
+              height: "auto",
+              display: "block",
+              margin: "0 auto",
+              transition: "transform 0.3s ease"
+            }}
+          />
+        </Box>
+      )}
+
+      {/* Button */}
+      <Button 
+        variant="contained"
+        sx={{
+          fontSize: { 
+            xs: "0.9rem", 
+            md: "1rem" 
+          },
+          padding: { 
+            xs: "10px 20px", 
+            md: "12px 28px" 
+          },
+          borderRadius: "4px",
+          fontWeight: 600
         }}
       >
-        <Box
-          component="img"
-          src={brands}
-          sx={{
-            width: "100%",
-            maxWidth: "100%",
-            opacity: 0.8,
-            transition: "all 0.3s ease",
-            "&:hover": {
-              opacity: 1,
-            },
-          }}
-          alt="Brands"
-        />
-      </Box>
-
-      <Box sx={{ mt: "3rem", mb: "3rem" }}>
-        <Button>Do you want to be the next?</Button>
-      </Box>
+        Do you want to be the next?
+      </Button>
     </Box>
   );
 };
 
 export default Clients;
-
