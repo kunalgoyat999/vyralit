@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/ui/Button";
-import { Box, Typography, keyframes } from "@mui/material";
+import { Box, Typography, keyframes, useMediaQuery } from "@mui/material";
 import brandImage from "../assets/brandLogo/VyralIt.png";
+import { useTheme } from "@mui/material/styles";
 
 // Smooth scroll utility
 const scrollTo = (id: any) => {
@@ -48,9 +49,14 @@ const Header = () => {
         boxSizing: "border-box",
       }}
     >
-      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <Box
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      >
         <img src={brandImage} style={{ height: isSticky ? 35 : 42 }} />
-        <Typography variant="caption" sx={{ letterSpacing: "2px", fontSize: 12 }}>
+        <Typography
+          variant="caption"
+          sx={{ letterSpacing: "2px", fontSize: 12 }}
+        >
           <span style={{ fontSize: isSticky ? 16 : 22 }}>V</span>YRALIT
         </Typography>
       </Box>
@@ -71,37 +77,118 @@ const Header = () => {
 };
 
 // ---------- SlantedBanner Component ----------
+// const SlantedBanner = ({ angle = -15, light = false }) => {
+//   const items = [
+//     "MARKETING",
+//     "MOTION",
+//     "UI/UX",
+//     "STRATEGY",
+//     "CONTENT",
+//     "BRANDING",
+//     "MARKETING",
+//     "MOTION",
+//   ];
+//   const scroll = keyframes`
+//     0% { transform: translateX(0%); }
+//     100% { transform: translateX(-50%); }
+//   `;
+//   const repeatedItems = [...items, ...items, ...items];
+
+//   return (
+//     <Box
+//       sx={{
+//         position: "absolute",
+//         top: light ? { xs: "25%", md: "-8%" } : { xs: "60%", md: "60%" },
+//         left: light ? { xs: "-120%", md: "-20%" } : { xs: "-120%", md: "-10%" },
+//         width: { xs: "300%", md: light ? "110%" : "120%" },
+//         transform: `rotate(${angle}deg)`,
+//         backgroundColor: light ? "#fff" : "#222",
+//         color: light ? "#000" : "#fff",
+//         display: "flex",
+//         justifyContent: "center",
+//         alignItems: "center",
+//         py: { xs: 1, md: 3 },
+//         zIndex: light ? 1 : 2,
+//         overflow: "hidden",
+//       }}
+//     >
+//       <Box
+//         sx={{
+//           display: "inline-flex",
+//           animation: `${scroll} 12s linear infinite`,
+//           gap: 4,
+//           minWidth: "100%",
+//         }}
+//       >
+//         {repeatedItems.map((text, i) => (
+//           <Box
+//             key={i}
+//             display="flex"
+//             alignItems="center"
+//             gap={1}
+//             flexDirection="row"
+//             justifyContent="space-evenly"
+//             width="100%"
+//           >
+//             <Typography
+//               variant="caption"
+//               fontSize={"1rem"}
+//               sx={{ whiteSpace: "nowrap" }}
+//             >
+//               {text}
+//             </Typography>
+//             <Box
+//               sx={{
+//                 width: 8,
+//                 height: 8,
+//                 bgcolor: "#ff4081",
+//                 borderRadius: "50%",
+//               }}
+//             />
+//           </Box>
+//         ))}
+//       </Box>
+//     </Box>
+//   );
+// };
+
 const SlantedBanner = ({ angle = -15, light = false }) => {
   const items = [
-    "MARKETING",
-    "MOTION",
-    "UI/UX",
-    "STRATEGY",
-    "CONTENT",
-    "BRANDING",
-    "MARKETING",
-    "MOTION",
+    "PERFORMANCE",
+    "GROWTH",
+    "SEO",
+    "DESIGN",
+    "SOCIAL",
+    "BRNDING",
+    "PERFORMANCE",
+    "GROWTH",
+    "SEO",
+    "DESIGN",
+    "SOCIAL",
+    "BRNDING",
   ];
-  const scroll = keyframes`
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-50%); }
-  `;
-  const repeatedItems = [...items, ...items, ...items];
+  const scroll = keyframes` 0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }`;
+  const repeatedItems = [...items, ...items, ...items, ...items, ...items];
 
   return (
     <Box
       sx={{
         position: "absolute",
-        top: light ? { xs: "25%", md: "-8%" } : { xs: "60%", md: "60%" },
-        left: light ? { xs: "-120%", md: "-20%" } : { xs: "-120%", md: "-10%" },
-        width: { xs: "300%", md: light ? "110%" : "120%" },
-        transform: `rotate(${angle}deg)`,
+        top: light ? { xs: "30%", md: "-10%" } : { xs: "80%", md: "60%" },
+        left: light ? { xs: "-32%", md: "-20%" } : { xs: "-110%", md: "-10%" },
+        width: light ? { xs: "400%", md:  "140%" } : { xs: "300%", md:  "120%" }, 
+        transform: {xs: light ? `rotate(-30deg)` : `rotate(30deg)`, md: `rotate(${angle}deg)`},
         backgroundColor: light ? "#fff" : "#222",
         color: light ? "#000" : "#fff",
         display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        py: { xs: 1, md: 3 },
+        justifyContent: "space-around",
+        alignItems: "left",
+        py: { xs: 2, md: 3 },
         zIndex: light ? 1 : 2,
         overflow: "hidden",
       }}
@@ -109,26 +196,25 @@ const SlantedBanner = ({ angle = -15, light = false }) => {
       <Box
         sx={{
           display: "inline-flex",
-          animation: `${scroll} 12s linear infinite`,
-          gap: 4,
+          animation: `${scroll} 10s linear infinite`,
+          gap: 4, // spacing between items
           minWidth: "100%",
         }}
       >
         {repeatedItems.map((text, i) => (
           <Box
             key={i}
-            display="flex"
-            alignItems="center"
-            gap={1}
-            flexDirection="row"
-            justifyContent="space-evenly"
-            width="100%"
+            
+            sx={{
+display:"flex",
+            alignItems:"center",
+            gap:1,
+            flexDirection:"row",
+            justifyContent:"space-evenly",
+            width:"100%"
+            }}
           >
-            <Typography
-              variant="caption"
-              fontSize={"1rem"}
-              sx={{ whiteSpace: "nowrap" }}
-            >
+            <Typography variant="caption" sx={{fontSize:"1rem"}} >
               {text}
             </Typography>
             <Box
@@ -145,7 +231,6 @@ const SlantedBanner = ({ angle = -15, light = false }) => {
     </Box>
   );
 };
-
 
 // ---------- Hero Section ----------
 const Hero = () => {
@@ -176,23 +261,24 @@ const Hero = () => {
           color: "#fff",
           position: "relative",
           height: "70vh",
-          width: "100vw",           // Take full screen width
+          width: "100vw", // Take full screen width
           paddingTop: 5,
           paddingBottom: 5,
         }}
       >
         {/* Diagonal Banners */}
         <SlantedBanner light={true} angle={35} />
-<SlantedBanner light={false} angle={-18} />
+        <SlantedBanner light={false} angle={-18} />
 
         {/* Hero Text */}
         <Box
           sx={{
             position: "relative",
             zIndex: 3,
-            paddingLeft: { xs: 0, md: "4rem" },
-            textAlign: { xs: "center", md: "left" },
-            mt: { xs: 8, md: 0 },
+            paddingLeft: { xs: "3rem", md: "10rem" },
+            textAlign: { xs: "left", md: "left" },
+            mt: { xs: 3, md: 0 },
+            
           }}
         >
           <Typography
@@ -200,7 +286,7 @@ const Hero = () => {
             sx={{
               fontWeight: 400,
               color: "#888",
-              fontSize: { xs: "2.5rem", md: "6rem" },
+              fontSize: { xs: "3rem", md: "5rem" },
             }}
           >
             Let Your Brand
@@ -209,6 +295,7 @@ const Hero = () => {
             variant="h2"
             fontWeight={550}
             fontSize={{ xs: "2.5rem", md: "5rem" }}
+            sx={{mb: {xs: 4}}}
           >
             Go{" "}
             <span style={{ color: "#ff4081" }}>
@@ -219,13 +306,16 @@ const Hero = () => {
             variant="h6"
             mt={2}
             fontSize={{ xs: "1.2rem", md: "2rem" }}
-            width={{ xs: "100%", md: "30%" }}
-            mb={4}
+            width={{ xs: "80%", md: "30%" }}
+            mb={{xs: 4, md: 4}}
           >
             We Help You Grow Where It Matters Most.
           </Typography>
 
-          <Box display="flex" justifyContent={{ xs: "center", md: "flex-start" }}>
+          <Box
+            display="flex"
+            justifyContent={{ xs: "flex-start", md: "flex-start" }}
+          >
             <Button onClick={() => scrollTo("contact")}>Work With Us</Button>
           </Box>
         </Box>
@@ -235,4 +325,3 @@ const Hero = () => {
 };
 
 export default Hero;
-

@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Typography, Paper, keyframes } from "@mui/material";
 import { styled } from "@mui/system";
 
@@ -151,11 +150,11 @@ const TestimonialsSection = () => {
       sx={{
         backgroundColor: "#000",
         color: "#fff",
-        px: { xs: 2, sm: 6, md: 10 },
-        py: { xs: 6, sm: 8 },
+        px: { xs: 3, sm: 6, md: 10 },
+        py: { xs: 0, sm: 8 },
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
-        gap: 6,
+        gap: {xs: 0, md: 6},
         overflow: "hidden",
         height: { xs: "auto", md: "60vh" },
       }}
@@ -167,6 +166,8 @@ const TestimonialsSection = () => {
           display: "flex",
           gap: 2,
           justifyContent: "space-evenly",
+          maxHeight: { xs: "60vh" },
+          overflow: "hidden",
         }}
       >
         <ScrollColumn animation={scrollUp}>
@@ -189,7 +190,8 @@ const TestimonialsSection = () => {
           flexDirection: "column",
           justifyContent: "center",
           pl: { md: 4 },
-          mt: { xs: 4, md: 0 },
+          mt: { xs: 2, md: 0 },
+          py: {xs: 4}
         }}
       >
         <Typography variant="overline" sx={{ color: "#FAF8F8", mb: 1 }}>

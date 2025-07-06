@@ -55,31 +55,44 @@ const ContactSection = () => {
     <Box
       sx={{
         bgcolor: "#fff",
-        px: { xs: "1rem", sm: "2rem", md: "10rem" },
-        py: { xs: "2rem", sm: "3rem", md: "5rem" },
+        padding: {
+          xs: "3rem 2rem 2rem 2rem", // mobile
+          sm: "6rem 4rem 6rem 4rem", // small tablet
+          md: "4rem 8rem 4rem 8rem", // tablet/desktop
+          lg: "4rem 20rem 2rem 15rem",
+        },
       }}
     >
       <Typography
         variant="h4"
-        fontWeight="bold"
         sx={{
           mb: 3,
           textTransform: "uppercase",
           color: "#1c2c40",
-          fontSize: { xs: "1.8rem", sm: "2.2rem", md: "2.5rem" },
+          fontSize: { xs: "2.4rem", sm: "2.2rem", md: "2.5rem" },
         }}
       >
         <span
           style={{
-            textDecorationLine: "underline",
+            textDecorationLine: isMobile ? "none" : "underline",
             textDecorationColor: "black",
-            textDecorationThickness: "2px",
-            textUnderlineOffset: "10px",
+            textDecorationThickness: "1.5px",
+            textUnderlineOffset: "12px",
           }}
         >
           Ready
         </span>{" "}
-        to Vyral IT.
+        to Vyral{" "}
+        <span
+          style={{
+            textDecorationLine: isMobile ? "underline" : "none",
+            textDecorationColor: "black",
+            textDecorationThickness: "1.5px",
+            textUnderlineOffset: "12px",
+          }}
+        >
+          IT.
+        </span>
       </Typography>
 
       <Typography
@@ -87,7 +100,7 @@ const ContactSection = () => {
         sx={{
           color: "#1c2c40",
           mb: 6,
-          fontSize: { xs: "0.9rem", sm: "1rem" },
+          fontSize: { xs: "1.2rem", sm: "1rem" },
         }}
       >
         Let's Create Something Extraordinary Together.
@@ -95,15 +108,15 @@ const ContactSection = () => {
 
       <Grid container spacing={4}>
         {/* Left Info Box */}
-        <Grid item xs={12} md={5}>
+        <Grid item xs={12} md={5} order={{ xs: 2, md: 1 }} flex={{ md: 1.2 }}>
           <Paper
             elevation={3}
             sx={{
               bgcolor: "#000",
               color: "#fff",
               borderRadius: 3,
-              px: 3,
-              py: 4,
+              px: 4,
+              py: 3,
             }}
           >
             <Typography variant="h6" fontWeight="bold" gutterBottom>
@@ -135,15 +148,17 @@ const ContactSection = () => {
                 icon: <LocationOnIcon sx={{ color: "#FF217D" }} />,
                 text: "803, Sector 21 E , Gurugram, 122016",
               },
-            ].map(({ icon, text }, index) => (
+            ].map(({ icon, text }, index, array) => (
               <Box
                 key={index}
                 display="flex"
                 alignItems="center"
-                gap={2}
-                mb={4}
+                gap={4}
+mb={index !== array.length - 1 ? 4 : 0}
               >
-                <IconButton disableRipple sx={{ p: 0 }}>{icon}</IconButton>
+                <IconButton disableRipple sx={{ p: 0 }}>
+                  {icon}
+                </IconButton>
                 <Typography variant="body2">{text}</Typography>
               </Box>
             ))}
@@ -151,12 +166,17 @@ const ContactSection = () => {
         </Grid>
 
         {/* Right Form Box */}
-        <Grid item xs={12} md={7}>
-          <Box display="flex" flexDirection="column" gap={3}>
+        <Grid item xs={12} md={7} order={{ xs: 1, md: 2 }} flex={{ md: 2 }}>
+          <Box
+            display="flex"
+            flexDirection="column"
+            gap={3}
+            width={{ xs: "130%" }}
+          >
             <Box
               display="flex"
               flexDirection={{ xs: "column", sm: "row" }}
-              gap={{ xs: 2, sm: 4 }}
+              gap={{ xs: 3, sm: 4 }}
             >
               <TextField
                 fullWidth
@@ -165,7 +185,13 @@ const ContactSection = () => {
                 variant="standard"
                 value={formData.name}
                 onChange={handleChange}
-                InputLabelProps={{ shrink: true }}
+                InputLabelProps={{
+                  shrink: true,
+                  sx: {
+                    fontSize: { xs: "1.4rem" }, // increase label font size here
+                    fontWeight: "bold", // optional for bolder label
+                  },
+                }}
               />
               <TextField
                 fullWidth
@@ -174,7 +200,13 @@ const ContactSection = () => {
                 variant="standard"
                 value={formData.mail}
                 onChange={handleChange}
-                InputLabelProps={{ shrink: true }}
+                InputLabelProps={{
+                  shrink: true,
+                  sx: {
+                    fontSize: { xs: "1.4rem" }, // increase label font size here
+                    fontWeight: "bold", // optional for bolder label
+                  },
+                }}
               />
             </Box>
 
@@ -185,7 +217,13 @@ const ContactSection = () => {
               variant="standard"
               value={formData.phone}
               onChange={handleChange}
-              InputLabelProps={{ shrink: true }}
+              InputLabelProps={{
+                shrink: true,
+                sx: {
+                  fontSize: { xs: "1.4rem" }, // increase label font size here
+                  fontWeight: "bold", // optional for bolder label
+                },
+              }}
             />
             <TextField
               fullWidth
@@ -195,12 +233,26 @@ const ContactSection = () => {
               onChange={handleChange}
               variant="standard"
               placeholder="Write your message..."
-              InputLabelProps={{ shrink: true }}
+              InputLabelProps={{
+                shrink: true,
+                sx: {
+                  fontSize: { xs: "1.4rem" }, // increase label font size here
+                  fontWeight: "bold", // optional for bolder label
+                },
+              }}
+              InputProps={{
+                sx: {
+                  paddingTop: { xs: "1.5em" }, // push text down (adjust this to fine-tune)
+                },
+              }}
               multiline
               minRows={3}
               sx={{ mb: 2 }}
             />
-            <Box display="flex" justifyContent={{ xs: "center", sm: "flex-end" }}>
+            <Box
+              display="flex"
+              justifyContent={{ xs: "flex-start", sm: "flex-end" }}
+            >
               <Button onClick={handleSubmit}>
                 Book your Free Strategy Call
               </Button>

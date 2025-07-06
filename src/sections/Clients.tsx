@@ -103,39 +103,58 @@ const Clients = () => {
   ];
 
   return (
-    <Box sx={{
-      padding: { 
-        xs: "2rem 1rem", 
-        md: "4rem 4rem", 
-        lg: "5rem 8rem" 
-      },
-      maxWidth: "1400px",
-       margin: "0 auto 0 1rem",
-       textAlign:"center"
-    }}>
-      {/* Heading */}
-      <Typography variant="h4" sx={{
-        fontSize: { 
-          xs: "1.8rem", 
-          md: "2.5rem" 
+    <Box
+      sx={{
+        padding: {
+          xs: "3rem 2rem 2rem 2rem", // mobile
+          sm: "6rem 4rem 6rem 4rem", // small tablet
+          md: "4rem 8rem 4rem 8rem", // tablet/desktop
+          lg: "4rem 15rem 2rem 15rem",
         },
-        mb: 4,
-        lineHeight: 1.2,
-        fontWeight: 600
-      }}>
-        <span style={{
-          textDecorationLine: "underline",
-          textDecorationColor: "black",
-          textDecorationThickness: "2px",
-          textUnderlineOffset: "8px",
-        }}>
+        maxWidth: "1400px",
+        margin: "0 auto 0 1rem",
+        textAlign: "left",
+      }}
+    >
+      {/* Heading */}
+      <Typography
+        variant="h4"
+        sx={{
+          fontSize: {
+            xs: "2rem",
+            md: "2.5rem",
+          },
+          mb: 4,
+          lineHeight: 1.2,
+          fontWeight: 600,
+        }}
+      >
+        <span
+          style={{
+            textDecorationLine: isMobile ? "none" : "underline",
+            textDecorationColor: "black",
+            textDecorationThickness: "1.5px",
+            textUnderlineOffset: "12px",
+          }}
+        >
           BRANDS
         </span>{" "}
         {isMobile ? (
           <>
             WE'VE
             <br />
-            WORKED WITH
+            <span
+              style={{
+                textDecorationLine: isMobile ? "underline" : "none",
+                textDecorationColor: "black",
+                textDecorationThickness: "1.5px",
+                textUnderlineOffset: "12px",
+              }}
+            >
+              {" "}
+              WORKED
+            </span>{" "}
+            WITH
           </>
         ) : (
           "WE'VE WORKED WITH"
@@ -144,22 +163,28 @@ const Clients = () => {
 
       {/* Mobile View - Individual Brand Images */}
       {isMobile ? (
-        <Grid container spacing={3} sx={{ 
-          maxWidth: "500px",
-          // margin: "0 auto",
-          mb: 4
-        }}>
+        <Grid
+          container
+          spacing={3}
+          sx={{
+            maxWidth: "500px",
+            // margin: "0 auto",
+            mb: 4,
+          }}
+        >
           {mobileBrands.map((brand, index) => (
             <Grid item xs={6} key={index}>
-              <Box sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "100%"
-              }}>
-                <img 
-                  src={brand.image} 
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  // alignItems: "left",
+                  // justifyContent: "left",
+                  height: "100%",
+                }}
+              >
+                <img
+                  src={brand.image}
                   alt={brand.name}
                   style={{
                     // height: "60px",
@@ -175,42 +200,43 @@ const Clients = () => {
         </Grid>
       ) : (
         /* Desktop View - Single All Brands Image */
-        <Box sx={{
-          margin: "0 auto",
-          mb: 4,
-          maxWidth: "900px",
-          '&:hover img': {
-            transform: "scale(1.02)"
-          }
-        }}>
-          <img 
-            src={allBrands} 
-            alt="All partner brands" 
+        <Box
+          sx={{
+            mb: 4,
+            maxWidth: "900px",
+            "&:hover img": {
+              transform: "scale(1.02)",
+            },
+          }}
+        >
+          <img
+            src={allBrands}
+            alt="All partner brands"
             style={{
               width: "100%",
               height: "auto",
               display: "block",
               margin: "0 auto",
-              transition: "transform 0.3s ease"
+              transition: "transform 0.3s ease",
             }}
           />
         </Box>
       )}
 
       {/* Button */}
-      <Button 
+      <Button
         variant="contained"
         sx={{
-          fontSize: { 
-            xs: "0.9rem", 
-            md: "1rem" 
+          fontSize: {
+            xs: "0.9rem",
+            md: "1rem",
           },
-          padding: { 
-            xs: "10px 20px", 
-            md: "12px 28px" 
+          padding: {
+            xs: "10px 20px",
+            md: "12px 28px",
           },
           borderRadius: "4px",
-          fontWeight: 600
+          fontWeight: 600,
         }}
       >
         Do you want to be the next?

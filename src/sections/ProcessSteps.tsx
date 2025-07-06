@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Box, Typography, Paper, useMediaQuery } from "@mui/material";
 import { keyframes } from "@emotion/react";
 import { useTheme } from "@mui/material/styles";
@@ -68,10 +68,10 @@ const ProcessSteps = () => {
         sx={{
           backgroundColor: "#FFEFF4",
           padding: {
-            xs: "4rem 2rem 4rem 2rem", // mobile
+            xs: "4rem 2rem 2rem 2rem", // mobile
             sm: "6rem 4rem 6rem 4rem", // small tablet
-            md: "8rem 8rem 8rem 8rem", // tablet/desktop
-            lg: "8rem 15rem 8rem 15rem", // large desktop
+            md: "4rem 8rem 8rem 8rem", // tablet/desktop
+            lg: "4rem 15rem 8rem 15rem", // large desktop
           },
         }}
       >
@@ -217,6 +217,7 @@ const ProcessSteps = () => {
           position: "relative",
           width: "100%",
           backgroundColor: "#FFEFF4",
+          pb: {xs: 4}
         }}
       >
         <Typography

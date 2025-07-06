@@ -13,19 +13,19 @@ import { Box } from "@mui/material";
 function App() {
   return (
     <div className="bg-black text-white">
-      {/* <Box id="home">
+     <Box id="home">
         <Hero />
       </Box>
-      <Box id="services">
+      {/* <Box id="services">
         <Services />
-      </Box> */}
-      {/* <ProcessSteps /> */}
+      </Box>  */}
+      <ProcessSteps />
       <Clients />
-      {/* <Testimonials />
+       <Testimonials />
       <Box id="contact">
         <Contact />
       </Box>
-      <Footer /> */}
+      <Footer />
     </div>
   );
 }

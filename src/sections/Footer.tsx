@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Typography, IconButton } from "@mui/material";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -31,10 +30,15 @@ const Footer = () => {
           gap: 1,
         }}
       >
-        <img
+        <Box
+          component="img"
           src={brandImage}
           alt="VyralIt"
-          style={{ maxWidth: "100px", height: "auto" }}
+          sx={{
+            maxWidth: { xs: 
+              30, md: 150 }, // Use px/rem/% values
+            height: "auto",
+          }}
         />
         <Typography
           variant="caption"
