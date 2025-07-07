@@ -1,10 +1,11 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 import img1 from "../assets/services/1st.png";
 import img2 from "../assets/services/2nd.png";
 import img3 from "../assets/services/3rd.png";
 import img4 from "../assets/services/4th.png";
 import img5 from "../assets/services/5th.png";
 import img6 from "../assets/services/6th.png";
+import { useTheme } from "@mui/material/styles";
 
 const services = [
   {
@@ -70,38 +71,45 @@ const services = [
 ];
 
 const Services = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <Box
       sx={{
-        px: { xs: 2, sm: 4, md: 8, lg: 15 },
-        pt: { xs: 4, sm: 5, md: 6 },
+        padding: {
+          sm: "6rem 4rem 6rem 4rem", // small tablet
+          md: "4rem 8rem 4rem 8rem", // tablet/desktop
+          lg: "4rem 15rem 2rem 15rem",
+        },
       }}
     >
-      <Typography
-        variant="h4"
-        gutterBottom
-        sx={{ fontSize: { xs: 28, sm: 40, md: 50 } }}
-      >
-        <span
-          style={{
-            textDecorationLine: "underline",
-            textDecorationColor: "black",
-            textDecorationThickness: "2px",
-            textUnderlineOffset: "4px",
-          }}
+      <Box sx={{ padding: { xs: "3rem 2rem 2rem 2rem" } }}>
+        <Typography
+          variant="h4"
+          gutterBottom
+          sx={{ fontSize: { xs: 40, sm: 40, md: 50 } }}
         >
-          WHAT
-        </span>{" "}
-        WE DO
-      </Typography>
-      <Typography
-        variant="subtitle1"
-        sx={{ mb: 6, fontSize: { xs: 14, sm: 16, md: 18 } }}
-      >
-        We bring performance, creativity, and connection under one roof. Here's
-        how we <i>Vyral It</i>
-      </Typography>
-
+          <span
+            style={{
+              textDecorationLine: "underline",
+              textDecorationColor: "black",
+              textDecorationThickness: "2px",
+              textUnderlineOffset: "4px",
+            }}
+          >
+            WHAT
+          </span>{" "}
+          WE DO
+        </Typography>
+        <Typography
+          variant="subtitle1"
+          sx={{ mb: 6, fontSize: { xs: 14, sm: 16, md: 18 } }}
+        >
+          We bring performance, creativity, and connection under one roof.
+          Here's how we <i>Vyral It</i>
+        </Typography>
+      </Box>
       {/* Background Lines */}
       <Box
         sx={{
@@ -129,7 +137,7 @@ const Services = () => {
             pointerEvents: "none",
           }}
         >
-          {Array.from({ length: 15 }).map((_, i) => (
+          {Array.from({ length: 14 }).map((_, i) => (
             <Box
               key={i}
               sx={{
@@ -145,113 +153,228 @@ const Services = () => {
         </Box>
 
         {/* Cards */}
-        <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-            gap: { xs: 4, md: 6 },
-            rowGap: { xs: 4, md: 6 },
-            position: "relative",
-            zIndex: 2,
-          }}
-        >
-          {services.map((service, index) => (
-            <Box
-              key={index}
-              sx={{
-                flexBasis: {
-                  xs: "100%",
-                  sm: "45%",
-                  md: "30%",
-                  lg: "220px",
-                },
-                height: 200,
-                borderRadius: 3,
-                p: 2,
-                transform: `rotate(${service.rotateBox})`,
-                boxShadow: "1px 2px 15px rgba(0,0,0,0.2)",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                position: "relative",
-                backgroundColor: "#fff",
-              }}
-            >
-              {/* Circles */}
-              <Box
-                sx={{
-                  position: "relative",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  mb: 1,
+        {isMobile ? (
+          <div
+            style={{
+              scrollSnapType: "y mandatory",
+              overflowY: "scroll",
+              height: "72vh",
+              scrollbarWidth: "none", // Firefox
+              msOverflowStyle: "none",
+              // padding: {xs: "3rem 2rem 2rem 2rem" },
+              paddingLeft: '2rem',
+              paddingRight: '2rem'
+            }}
+          >
+            {services.map((service, index) => (
+              <div
+                key={index}
+                style={{
+                  scrollSnapAlign: "start",
+                  height: "100vh",
+                  display: "flex",
+                  alignItems: "flex-start",
                 }}
               >
                 <Box
+                  key={index}
                   sx={{
-                    width: 36,
-                    height: 33,
-                    borderRadius: "50%",
-                    backgroundColor: service.bigCircleColor,
-                    position: "absolute",
-                    top: 5,
-                    left: service.outerLeft,
-                    zIndex: -1,
+                    flexBasis: {
+                      xs: "100%",
+                      sm: "45%",
+                      md: "30%",
+                      lg: "220px",
+                    },
+                    height: 200,
+                    borderRadius: 3,
+                    p: 2,
+                    transform: `rotate(${service.rotateBox})`,
+                    boxShadow: "1px 2px 15px rgba(0,0,0,0.2)",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    position: "relative",
+                    backgroundColor: "#fff",
+                    mt: {
+                      xs: "50%",
+                    },
                   }}
-                />
-                <Box
-                  sx={{
-                    width: 22,
-                    height: 20,
-                    borderRadius: "50%",
-                    backgroundColor: service.smallCircleCOlor,
-                  }}
-                />
-              </Box>
+                >
+                  {/* Circles */}
+                  <Box
+                    sx={{
+                      position: "relative",
+                      // left: "50%",
+                      transform: "translateX(-50%)",
+                      mb: 1,
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        width: 36,
+                        height: 33,
+                        borderRadius: "50%",
+                        backgroundColor: service.bigCircleColor,
+                        position: "absolute",
+                        top: 5,
+                        left: service.outerLeft,
+                        zIndex: -1,
+                      }}
+                    />
+                    <Box
+                      sx={{
+                        width: 22,
+                        height: 20,
+                        borderRadius: "50%",
+                        backgroundColor: service.smallCircleCOlor,
+                      }}
+                    />
+                  </Box>
 
-              {/* Content Box */}
+                  {/* Content Box */}
+                  <Box
+                    sx={{
+                      width: "100%",
+                      height: 140,
+                      bgcolor: service.color,
+                      borderRadius: 3,
+                      textAlign: "center",
+                      mt: "auto",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      px: 1,
+                    }}
+                  >
+                    <Typography
+                      fontWeight="bold"
+                      fontSize={{ xs: "15px", sm: "16px", md: "17px" }}
+                    >
+                      {service.title}
+                    </Typography>
+                    {service.subtitle && (
+                      <Typography
+                        fontSize={{ xs: "13px", sm: "14px", md: "15px" }}
+                        color="text.secondary"
+                        mt={0.5}
+                      >
+                        {service.subtitle}
+                      </Typography>
+                    )}
+                  </Box>
+                </Box>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              gap: { xs: 4, md: 14 },
+              rowGap: { xs: 4, md: 14 },
+              position: "relative",
+              zIndex: 2,
+            }}
+          >
+            {services.map((service, index) => (
               <Box
+                key={index}
                 sx={{
-                  width: "100%",
-                  height: 140,
-                  bgcolor: service.color,
+                  flexBasis: {
+                    xs: "100%",
+                    sm: "45%",
+                    md: "30%",
+                    lg: "220px",
+                  },
+                  height: 200,
                   borderRadius: 3,
-                  textAlign: "center",
-                  mt: "auto",
+                  p: 2,
+                  transform: `rotate(${service.rotateBox})`,
+                  boxShadow: "1px 2px 15px rgba(0,0,0,0.2)",
                   display: "flex",
                   flexDirection: "column",
-                  justifyContent: "center",
                   alignItems: "center",
-                  px: 1,
+                  position: "relative",
+                  backgroundColor: "#fff",
                 }}
               >
-                <Typography
-                  fontWeight="bold"
-                  fontSize={{ xs: "15px", sm: "16px", md: "17px" }}
+                {/* Circles */}
+                <Box
+                  sx={{
+                    position: "relative",
+                    transform: "translateX(-50%)",
+                    mb: 1,
+                  }}
                 >
-                  {service.title}
-                </Typography>
-                {service.subtitle && (
+                  <Box
+                    sx={{
+                      width: 36,
+                      height: 33,
+                      borderRadius: "50%",
+                      backgroundColor: service.bigCircleColor,
+                      position: "absolute",
+                      top: 5,
+                      left: service.outerLeft,
+                      zIndex: -1,
+                    }}
+                  />
+                  <Box
+                    sx={{
+                      width: 22,
+                      height: 20,
+                      borderRadius: "50%",
+                      backgroundColor: service.smallCircleCOlor,
+                    }}
+                  />
+                </Box>
+
+                {/* Content Box */}
+                <Box
+                  sx={{
+                    width: "100%",
+                    height: 140,
+                    bgcolor: service.color,
+                    borderRadius: 3,
+                    textAlign: "center",
+                    mt: "auto",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    px: 1,
+                  }}
+                >
                   <Typography
-                    fontSize={{ xs: "13px", sm: "14px", md: "15px" }}
-                    color="text.secondary"
-                    mt={0.5}
+                    fontWeight="bold"
+                    fontSize={{ xs: "15px", sm: "16px", md: "17px" }}
                   >
-                    {service.subtitle}
+                    {service.title}
                   </Typography>
-                )}
+                  {service.subtitle && (
+                    <Typography
+                      fontSize={{ xs: "13px", sm: "14px", md: "15px" }}
+                      color="text.secondary"
+                      mt={0.5}
+                    >
+                      {service.subtitle}
+                    </Typography>
+                  )}
+                </Box>
               </Box>
-            </Box>
-          ))}
-        </Box>
+            ))}
+          </Box>
+        )}
 
         {/* Footer Text */}
         <Typography
           variant="h3"
           fontWeight="bold"
           sx={{
-            mt: 8,
-            mb: 8,
+            mt: {md:8},
+            mb: 2,
             color: "#FFE3ED",
             textTransform: "uppercase",
             fontSize: { xs: 32, sm: 48, md: 64, lg: 90 },
