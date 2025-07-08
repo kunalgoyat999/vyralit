@@ -134,7 +134,7 @@ const ContactSection = () => {
             {[
               {
                 icon: <CallIcon sx={{ color: "#FF217D" }} />,
-                text: "+91 976976 0585",
+                text: "+91 976 976 0585",
               },
               {
                 icon: <MailOutlineIcon sx={{ color: "#FF217D" }} />,
