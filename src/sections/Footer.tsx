@@ -1,9 +1,7 @@
 import { Box, Typography, IconButton } from "@mui/material";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import YouTubeIcon from "@mui/icons-material/YouTube";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import brandImage from "../assets/brandLogo/VyralIt.png";
+import { LinkedIn } from "@mui/icons-material";
+// import brandImage from "../assets/brandLogo/VyralIt.png";
 
 const Footer = () => {
   return (
@@ -30,7 +28,7 @@ const Footer = () => {
           gap: 1,
         }}
       >
-        <Box
+        {/* <Box
           component="img"
           src={brandImage}
           alt="VyralIt"
@@ -39,7 +37,7 @@ const Footer = () => {
               30, md: 150 }, // Use px/rem/% values
             height: "auto",
           }}
-        />
+        /> */}
         <Typography
           variant="caption"
           sx={{ letterSpacing: "2px", fontSize: 15 }}
@@ -61,7 +59,7 @@ const Footer = () => {
         <Typography variant="body1" sx={{ fontWeight: "bold" }}>
           FOLLOW US
         </Typography>
-        {[InstagramIcon, FacebookIcon, YouTubeIcon, TwitterIcon].map(
+        {[InstagramIcon,LinkedIn].map(
           (Icon, idx) => (
             <IconButton
               key={idx}

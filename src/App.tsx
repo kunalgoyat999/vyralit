@@ -9,8 +9,14 @@ import Testimonials from "./sections/Testimonials";
 import Contact from "./sections/Contact";
 import Footer from "./sections/Footer";
 import { Box } from "@mui/material";
+import { useRef } from "react";
 
 function App() {
+   const contactRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollToContact = () => {
+    contactRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
   return (
     <div className="bg-black text-white">
      <Box id="home">
@@ -20,10 +26,10 @@ function App() {
         <Services />
       </Box> 
       <ProcessSteps />
-      <Clients />
+      <Clients onContactClick={scrollToContact} />
        <Testimonials />
       <Box id="contact">
-        <Contact />
+        <Contact ref={contactRef}  />
       </Box>
       <Footer />
     </div>

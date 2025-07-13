@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef } from "react";
 import {
   Box,
   Typography,
@@ -15,9 +15,12 @@ import LanguageIcon from "@mui/icons-material/Language";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Button from "../components/ui/Button";
 
-const ContactSection = () => {
+type Props = {};
+
+const ContactSection = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -26,39 +29,91 @@ const ContactSection = () => {
     message: "",
   });
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  const [errors, setErrors] = useState({
+    name: "",
+    mail: "",
+    phone: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
   };
 
   const handleSubmit = async () => {
-    const baseUrl =
-      "https://script.google.com/macros/s/AKfycbxDHLZsNG6Sf5M-D9WuOlHZI0XExJsRTiwivnfpxhqwzgT-Kgum9Vm1kdPFc0Aev00h/exec";
+    let newErrors = { name: "", mail: "", phone: "" };
+    let isValid = true;
 
-    const params = new URLSearchParams(formData).toString();
-    const url = `${baseUrl}?${params}`;
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
+      isValid = false;
+    }
 
-    const res = await fetch(url);
-    const result = await res.json();
+    if (!formData.mail.trim()) {
+      newErrors.mail = "Email is required";
+      isValid = false;
+    } else if (
+      !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.mail)
+    ) {
+      newErrors.mail = "Enter a valid email address";
+      isValid = false;
+    }
 
-    if (result.status === "success") {
-      alert("Submitted successfully!");
-      setFormData({ name: "", mail: "", phone: "", message: "" });
-    } else {
-      alert("Submission failed!");
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Phone number is required";
+      isValid = false;
+    } else if (!/^\d{10}$/.test(formData.phone)) {
+      newErrors.phone = "Enter a valid 10-digit number";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    if (!isValid) return;
+
+    // Start loading here
+    setIsSubmitting(true);
+
+    try {
+      const baseUrl =
+        "https://script.google.com/macros/s/AKfycbxDHLZsNG6Sf5M-D9WuOlHZI0XExJsRTiwivnfpxhqwzgT-Kgum9Vm1kdPFc0Aev00h/exec";
+
+      const params = new URLSearchParams(formData).toString();
+      const url = `${baseUrl}?${params}`;
+
+      const res = await fetch(url);
+      const result = await res.json();
+
+      if (result.status === "success") {
+        alert("Submitted successfully!");
+        setFormData({ name: "", mail: "", phone: "", message: "" });
+      } else {
+        alert("Submission failed!");
+      }
+    } catch (err) {
+      alert("Something went wrong!");
+    } finally {
+      setIsSubmitting(false); // stop loading in both success/failure
     }
   };
 
+
   return (
     <Box
+      ref={ref}
       sx={{
         bgcolor: "#fff",
         padding: {
-          xs: "3rem 2rem 2rem 2rem", // mobile
-          sm: "6rem 4rem 6rem 4rem", // small tablet
-          md: "4rem 8rem 4rem 8rem", // tablet/desktop
+          xs: "3rem 2rem 2rem 2rem",
+          sm: "6rem 4rem 6rem 4rem",
+          md: "4rem 8rem 4rem 8rem",
           lg: "4rem 20rem 2rem 15rem",
         },
       }}
@@ -146,7 +201,7 @@ const ContactSection = () => {
               },
               {
                 icon: <LocationOnIcon sx={{ color: "#FF217D" }} />,
-                text: "803, Sector 21 E , Gurugram, 122016",
+                text: "809, Sector 21 E , Gurugram, 122016",
               },
             ].map(({ icon, text }, index, array) => (
               <Box
@@ -154,7 +209,7 @@ const ContactSection = () => {
                 display="flex"
                 alignItems="center"
                 gap={4}
-mb={index !== array.length - 1 ? 4 : 0}
+                mb={index !== array.length - 1 ? 4 : 0}
               >
                 <IconButton disableRipple sx={{ p: 0 }}>
                   {icon}
@@ -185,12 +240,11 @@ mb={index !== array.length - 1 ? 4 : 0}
                 variant="standard"
                 value={formData.name}
                 onChange={handleChange}
+                error={!!errors.name}
+                helperText={errors.name}
                 InputLabelProps={{
                   shrink: true,
-                  sx: {
-                    fontSize: { xs: "1.4rem" }, // increase label font size here
-                    fontWeight: "bold", // optional for bolder label
-                  },
+                  sx: { fontSize: { xs: "1.4rem" }, fontWeight: "bold" },
                 }}
               />
               <TextField
@@ -200,12 +254,11 @@ mb={index !== array.length - 1 ? 4 : 0}
                 variant="standard"
                 value={formData.mail}
                 onChange={handleChange}
+                error={!!errors.mail}
+                helperText={errors.mail}
                 InputLabelProps={{
                   shrink: true,
-                  sx: {
-                    fontSize: { xs: "1.4rem" }, // increase label font size here
-                    fontWeight: "bold", // optional for bolder label
-                  },
+                  sx: { fontSize: { xs: "1.4rem" }, fontWeight: "bold" },
                 }}
               />
             </Box>
@@ -215,16 +268,23 @@ mb={index !== array.length - 1 ? 4 : 0}
               label="Phone"
               name="phone"
               variant="standard"
+              type="tel"
               value={formData.phone}
               onChange={handleChange}
+              onKeyPress={(e) => {
+                if (!/[0-9]/.test(e.key)) {
+                  e.preventDefault(); // block letters and special chars
+                }
+              }}
+              error={!!errors.phone}
+              helperText={errors.phone}
               InputLabelProps={{
                 shrink: true,
-                sx: {
-                  fontSize: { xs: "1.4rem" }, // increase label font size here
-                  fontWeight: "bold", // optional for bolder label
-                },
+                sx: { fontSize: { xs: "1.4rem" }, fontWeight: "bold" },
               }}
             />
+
+
             <TextField
               fullWidth
               label="Message"
@@ -235,33 +295,37 @@ mb={index !== array.length - 1 ? 4 : 0}
               placeholder="Write your message..."
               InputLabelProps={{
                 shrink: true,
-                sx: {
-                  fontSize: { xs: "1.4rem" }, // increase label font size here
-                  fontWeight: "bold", // optional for bolder label
-                },
+                sx: { fontSize: { xs: "1.4rem" }, fontWeight: "bold" },
               }}
               InputProps={{
                 sx: {
-                  paddingTop: { xs: "1.5em" }, // push text down (adjust this to fine-tune)
+                  paddingTop: { xs: "1.5em" },
                 },
               }}
               multiline
               minRows={3}
               sx={{ mb: 2 }}
             />
+
             <Box
               display="flex"
               justifyContent={{ xs: "flex-start", sm: "flex-end" }}
             >
-              <Button onClick={handleSubmit}>
-                Book your Free Strategy Call
+              <Button
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+                sx={{ minWidth: "220px" }}
+              >
+                {isSubmitting ? "Submitting..." : "Book your Free Strategy Call"}
               </Button>
+
             </Box>
           </Box>
         </Grid>
       </Grid>
     </Box>
   );
-};
+});
 
 export default ContactSection;
+

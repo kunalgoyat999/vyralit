@@ -6,6 +6,7 @@ import img4 from "../assets/services/4th.png";
 import img5 from "../assets/services/5th.png";
 import img6 from "../assets/services/6th.png";
 import { useTheme } from "@mui/material/styles";
+import { keyframes } from "@emotion/react";
 
 const services = [
   {
@@ -69,6 +70,10 @@ const services = [
     outerLeft: -2,
   },
 ];
+  const scrollLeft = keyframes`
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  `;
 
 const Services = () => {
   const theme = useTheme();
@@ -78,8 +83,8 @@ const Services = () => {
     <Box
       sx={{
         padding: {
-          sm: "6rem 4rem 6rem 4rem", // small tablet
-          md: "4rem 8rem 4rem 8rem", // tablet/desktop
+          sm: "6rem 4rem 6rem 4rem",
+          md: "4rem 8rem 4rem 8rem",
           lg: "4rem 15rem 2rem 15rem",
         },
       }}
@@ -110,6 +115,7 @@ const Services = () => {
           Here's how we <i>Vyral It</i>
         </Typography>
       </Box>
+
       {/* Background Lines */}
       <Box
         sx={{
@@ -159,11 +165,10 @@ const Services = () => {
               scrollSnapType: "y mandatory",
               overflowY: "scroll",
               height: "72vh",
-              scrollbarWidth: "none", // Firefox
+              scrollbarWidth: "none",
               msOverflowStyle: "none",
-              // padding: {xs: "3rem 2rem 2rem 2rem" },
-              paddingLeft: '2rem',
-              paddingRight: '2rem'
+              paddingLeft: "2rem",
+              paddingRight: "2rem",
             }}
           >
             {services.map((service, index) => (
@@ -171,20 +176,15 @@ const Services = () => {
                 key={index}
                 style={{
                   scrollSnapAlign: "start",
-                  height: "100vh",
+                  paddingBottom: "2.5rem",
                   display: "flex",
                   alignItems: "flex-start",
+                  justifyContent: "center",
                 }}
               >
                 <Box
-                  key={index}
                   sx={{
-                    flexBasis: {
-                      xs: "100%",
-                      sm: "45%",
-                      md: "30%",
-                      lg: "220px",
-                    },
+                    flexBasis: "100%",
                     height: 200,
                     borderRadius: 3,
                     p: 2,
@@ -193,18 +193,14 @@ const Services = () => {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    position: "relative",
                     backgroundColor: "#fff",
-                    mt: {
-                      xs: "50%",
-                    },
+                    mt: {xs:"2.8rem"}, // Reduced spacing
                   }}
                 >
                   {/* Circles */}
                   <Box
                     sx={{
                       position: "relative",
-                      // left: "50%",
                       transform: "translateX(-50%)",
                       mb: 1,
                     }}
@@ -297,7 +293,6 @@ const Services = () => {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  position: "relative",
                   backgroundColor: "#fff",
                 }}
               >
@@ -369,11 +364,30 @@ const Services = () => {
         )}
 
         {/* Footer Text */}
-        <Typography
+        {/* <Typography
           variant="h3"
           fontWeight="bold"
           sx={{
-            mt: {md:8},
+            mt: { md: 8 },
+            mb: 2,
+            color: "#FFE3ED",
+            textTransform: "uppercase",
+            fontSize: { xs: 32, sm: 48, md: 64, lg: 90 },
+            textAlign: "center",
+          }}
+        >
+          YOU NAME IT WE DO IT
+        </Typography> */}
+        <Typography
+          variant="h2"
+          fontWeight="bold"
+          sx={{
+            display: "inline-block",
+            animation: `${scrollLeft} 7s linear infinite`,
+            // color: "#FAD4E4",
+            // letterSpacing: 5,
+            // fontSize: { xs: 40, sm: 70, md: 110, lg: 135 },
+            mt: { md: 8 },
             mb: 2,
             color: "#FFE3ED",
             textTransform: "uppercase",
@@ -383,6 +397,7 @@ const Services = () => {
         >
           YOU NAME IT WE DO IT
         </Typography>
+       
       </Box>
     </Box>
   );
