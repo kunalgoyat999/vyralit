@@ -19,6 +19,7 @@ function App() {
   };
   return (
     <div className="bg-black text-white">
+      <Box sx={{ overflowX: 'hidden' }}>
      <Box id="home">
         <Hero />
       </Box>
@@ -32,6 +33,7 @@ function App() {
         <Contact ref={contactRef}  />
       </Box>
       <Footer />
+      </Box>
     </div>
   );
 }

@@ -221,17 +221,25 @@ const ContactSection = forwardRef<HTMLDivElement, Props>((props, ref) => {
         </Grid>
 
         {/* Right Form Box */}
-        <Grid item xs={12} md={7} order={{ xs: 1, md: 2 }} flex={{ md: 2 }}>
+        <Grid
+          item
+          xs={12}
+          md={7}
+          order={{ xs: 1, md: 2 }}
+          flex={{ md: 2 }}
+          sx={{ width: { xs: '100%', md: 'auto' } }}
+        >
           <Box
             display="flex"
             flexDirection="column"
             gap={3}
-            width={{ xs: "130%" }}
+            width={{ xs: "100%", md: "auto" }}
           >
             <Box
               display="flex"
               flexDirection={{ xs: "column", sm: "row" }}
               gap={{ xs: 3, sm: 4 }}
+              width={{ xs: "100%", md: "auto" }}
             >
               <TextField
                 fullWidth

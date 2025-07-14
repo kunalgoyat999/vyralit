@@ -1,23 +1,36 @@
-import  { useState } from "react";
-import { Box, Typography, Paper, useMediaQuery } from "@mui/material";
+import React, { useState, useRef, useEffect } from "react";
+import {
+  Box,
+  Typography,
+  Paper,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { keyframes } from "@emotion/react";
-import { useTheme } from "@mui/material/styles";
 
 const ProcessSteps = () => {
+  /* ---------------- state ---------------- */
   const [activeStep, setActiveStep] = useState("analyse");
+
+  /* ---------------- theme / breakpoints ---------------- */
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
+  /* ---------------- refs for IntersectionObserver ---------------- */
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  /* ---------------- marquee keyframes ---------------- */
   const scrollLeft = keyframes`
-    0% { transform: translateX(100%); }
+    0%   { transform: translateX(100%); }
     100% { transform: translateX(-100%); }
   `;
 
+  /* ---------------- step data ---------------- */
   const steps = [
     {
       key: "analyse",
       label: "Analyse",
-      stepNumber: "Step 1",
+      stepNumber: "Step 1",
       description: (
         <>
           <span style={{ color: "#FF217D", fontWeight: 600 }}>
@@ -32,7 +45,7 @@ const ProcessSteps = () => {
     {
       key: "plan",
       label: "Plan",
-      stepNumber: "Step 2",
+      stepNumber: "Step 2",
       description: (
         <>
           With your{" "}
@@ -48,7 +61,7 @@ const ProcessSteps = () => {
     {
       key: "execute",
       label: "Execute",
-      stepNumber: "Step 3",
+      stepNumber: "Step 3",
       description: (
         <>
           <span style={{ color: "#FF217D", fontWeight: 600 }}>
@@ -62,19 +75,70 @@ const ProcessSteps = () => {
     },
   ];
 
+  useEffect(() => {
+    if (!isMobile) return;
+
+    const stepElements = stepRefs.current.filter(Boolean) as HTMLDivElement[];
+
+    const handleScroll = () => {
+      let closestStep = "";
+      let minDistance = Infinity;
+
+      stepElements.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        const centerY = rect.top + rect.height / 2;
+        const screenCenter = window.innerHeight / 2;
+        const distance = Math.abs(centerY - screenCenter);
+
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestStep = el.getAttribute("data-key") || "";
+        }
+      });
+
+      setActiveStep(closestStep);
+    };
+
+    // Debounce with requestAnimationFrame for smoothness
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    // Initial run
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [isMobile]);
+
+
+
+  /* ---------------- render ---------------- */
   return (
     <>
+      {/* ---------- main section ---------- */}
       <Box
         sx={{
           backgroundColor: "#FFEFF4",
           padding: {
-            xs: "4rem 2rem 2rem 2rem", // mobile
-            sm: "6rem 4rem 6rem 4rem", // small tablet
-            md: "4rem 8rem 8rem 8rem", // tablet/desktop
-            lg: "4rem 15rem 8rem 15rem", // large desktop
+            xs: "4rem 2rem 2rem",
+            sm: "6rem 4rem 6rem",
+            md: "4rem 8rem 8rem",
+            lg: "4rem 15rem 8rem",
           },
         }}
       >
+        {/* ---------- heading ---------- */}
         <Typography
           variant="h4"
           gutterBottom
@@ -85,7 +149,7 @@ const ProcessSteps = () => {
         >
           <span
             style={{
-              textDecorationLine: isMobile ? "none": "underline",
+              textDecorationLine: isMobile ? "none" : "underline",
               textDecorationColor: "black",
               textDecorationThickness: "1.5px",
               textUnderlineOffset: "12px",
@@ -93,18 +157,20 @@ const ProcessSteps = () => {
           >
             HOW
           </span>{" "}
-          WE WORK <span
+          WE WORK{" "}
+          <span
             style={{
-              textDecorationLine: isMobile ? "underline" :  "none",
+              textDecorationLine: isMobile ? "underline" : "none",
               textDecorationColor: "black",
               textDecorationThickness: "1.5px",
               textUnderlineOffset: "12px",
-              
             }}
-          >TOGETHER</span>
+          >
+            TOGETHER
+          </span>
         </Typography>
 
-        {/* Steps Container */}
+        {/* ---------- steps container ---------- */}
         <Box
           sx={{
             display: "flex",
@@ -113,7 +179,7 @@ const ProcessSteps = () => {
             alignItems: "flex-start",
           }}
         >
-          {/* V Symbol - only shown in desktop */}
+          {/* decorative 'V' only on desktop */}
           {!isMobile && (
             <Box
               sx={{
@@ -130,7 +196,7 @@ const ProcessSteps = () => {
             </Box>
           )}
 
-          {/* Steps */}
+          {/* steps list */}
           <Box
             sx={{
               display: "flex",
@@ -139,14 +205,14 @@ const ProcessSteps = () => {
               flex: 1,
             }}
           >
-            {steps.map((step) => (
+            {steps.map((step, i) => (
               <Box
                 key={step.key}
-                sx={{
-                  flex: 1,
-                  position: "relative",
-                }}
+                data-key={step.key}
+                ref={(el) => (stepRefs.current[i] = el)}
+                sx={{ flex: 1, position: "relative", scrollMarginTop: "30vh" }}
               >
+                {/* tiny “Step X” label */}
                 <Typography
                   variant="body2"
                   sx={{
@@ -155,15 +221,17 @@ const ProcessSteps = () => {
                     fontSize: 12,
                     mb: 1,
                     ml: 2,
-                    height: "20px",
+                    height: 20,
                   }}
                 >
-                  {activeStep === step.key ? step.stepNumber : " "}
+                  {activeStep === step.key ? step.stepNumber : " "}
                 </Typography>
+
+                {/* card */}
                 <Paper
+                  elevation={0}
                   onClick={() => setActiveStep(step.key)}
                   onMouseEnter={() => setActiveStep(step.key)}
-                  elevation={0}
                   sx={{
                     cursor: "pointer",
                     border:
@@ -184,22 +252,11 @@ const ProcessSteps = () => {
                 >
                   <Typography
                     variant="h6"
-                    sx={{
-                      fontSize: 20,
-                      color: "black",
-                      fontWeight: 600,
-                      mb: 2,
-                    }}
+                    sx={{ fontSize: 20, fontWeight: 600, mb: 2 }}
                   >
                     {step.label}
                   </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: "text.secondary",
-                      lineHeight: 1.6,
-                    }}
-                  >
+                  <Typography variant="body2" sx={{ lineHeight: 1.6 }}>
                     {step.description}
                   </Typography>
                 </Paper>
@@ -209,7 +266,7 @@ const ProcessSteps = () => {
         </Box>
       </Box>
 
-      {/* Marquee Section */}
+      {/* ---------- marquee ---------- */}
       <Box
         sx={{
           overflow: "hidden",
@@ -217,7 +274,7 @@ const ProcessSteps = () => {
           position: "relative",
           width: "100%",
           backgroundColor: "#FFEFF4",
-          pb: {xs: 4}
+          pb: { xs: 4 },
         }}
       >
         <Typography
@@ -231,7 +288,7 @@ const ProcessSteps = () => {
             fontSize: { xs: 40, sm: 70, md: 110, lg: 135 },
           }}
         >
-          LETS VYRAL IT
+          LETS VYRAL IT
         </Typography>
       </Box>
     </>
@@ -239,3 +296,4 @@ const ProcessSteps = () => {
 };
 
 export default ProcessSteps;
+
