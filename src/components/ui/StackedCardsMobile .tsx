@@ -13,14 +13,9 @@ interface Service {
 
 const StackedCardsMobile = ({ services }: { services: Service[] }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-
-  /** number of cards already pushed out of view */
   const [hiddenCount, setHiddenCount] = useState(0);
-
-  /** debounce so one wheel tick ≠ many cards */
   const cooldown = useRef(false);
 
-  /* Move stack one step up or down */
   const advanceStack = (dir: "up" | "down") => {
     setHiddenCount((prev) => {
       if (dir === "down" && prev < services.length) return prev + 1;
@@ -29,18 +24,16 @@ const StackedCardsMobile = ({ services }: { services: Service[] }) => {
     });
   };
 
-  /* ─────────── wheel + touch listeners ─────────── */
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
 
-    /* desktop wheel */
     const onWheel = (e: WheelEvent) => {
       if (cooldown.current) return;
 
       const mustTrap =
-        (e.deltaY > 0 && hiddenCount < services.length) || // down, cards remain
-        (e.deltaY < 0 && hiddenCount > 0);                // up, cards hidden
+        (e.deltaY > 0 && hiddenCount < services.length) ||
+        (e.deltaY < 0 && hiddenCount > 0);
 
       if (mustTrap) {
         e.preventDefault();
@@ -51,14 +44,14 @@ const StackedCardsMobile = ({ services }: { services: Service[] }) => {
       setTimeout(() => (cooldown.current = false), 350);
     };
 
-    /* mobile swipe */
     let startY = 0;
     const onTouchStart = (e: TouchEvent) => {
       startY = e.touches[0].clientY;
     };
+
     const onTouchMove = (e: TouchEvent) => {
       const diff = startY - e.touches[0].clientY;
-      if (Math.abs(diff) < 8) return; // ignore tiny wiggles
+      if (Math.abs(diff) < 8) return;
 
       const goingDown = diff > 0;
       const mustTrap =
@@ -69,6 +62,7 @@ const StackedCardsMobile = ({ services }: { services: Service[] }) => {
         e.preventDefault();
         advanceStack(goingDown ? "down" : "up");
       }
+
       startY = e.touches[0].clientY;
     };
 
@@ -83,38 +77,43 @@ const StackedCardsMobile = ({ services }: { services: Service[] }) => {
     };
   }, [hiddenCount, services.length]);
 
-  /* ─────────── body‑scroll lock ─────────── */
+  // Scroll lock for body + html (important for production)
   useEffect(() => {
-    // Lock page ONLY while in-between top & bottom
-    if (hiddenCount > 0 && hiddenCount < services.length) {
+    const lockScroll = () => {
       document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "hidden";
     };
+    const unlockScroll = () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+
+    if (hiddenCount > 0 && hiddenCount < services.length) {
+      lockScroll();
+    } else {
+      unlockScroll();
+    }
+
+    return unlockScroll;
   }, [hiddenCount, services.length]);
 
-  /* ─────────── render ─────────── */
   return (
     <Box
       ref={containerRef}
+      className="cards-wrapper"
       sx={{
-          position: "relative",
-    // overflow: "hidden",
-    minHeight: "300px",        // ✅ Enough to show all cards properly
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    mb: 4, 
+        position: "relative",
+        overflow: "hidden",
+        minHeight: "600px", // Enough to avoid white space issue
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        mb: 4,
       }}
     >
       {services.map((svc, idx) => {
         const hidden = idx < hiddenCount;
         const side = idx % 2 === 0 ? "right" : "left";
-
-        /* Optional tiny vertical stagger (5 px) while still staying centred */
         const staggerY = idx * 5;
 
         return (
@@ -131,7 +130,7 @@ const StackedCardsMobile = ({ services }: { services: Service[] }) => {
                   }) rotate(${svc.rotateBox})`
                 : `translate(-50%, ${staggerY}px) rotate(${svc.rotateBox})`,
               opacity: hidden ? 0 : 1,
-              transition: "all .55s ease",
+              transition: "all 0.55s ease",
               zIndex: services.length - idx,
               borderRadius: 3,
               p: 2,
@@ -142,7 +141,7 @@ const StackedCardsMobile = ({ services }: { services: Service[] }) => {
               bgcolor: "#fff",
             }}
           >
-            {/* decorative circles */}
+            {/* Decorative Circles */}
             <Box sx={{ position: "relative", transform: "translateX(-50%)", mb: 1 }}>
               <Box
                 sx={{
@@ -166,7 +165,7 @@ const StackedCardsMobile = ({ services }: { services: Service[] }) => {
               />
             </Box>
 
-            {/* card content */}
+            {/* Card Content */}
             <Box
               sx={{
                 width: "100%",
