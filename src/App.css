@@ -1,6 +1,17 @@
-#root {
-  margin: 0 auto;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
+
+.cards-wrapper {
+  overscroll-behavior: contain;
+}
+
+/* #root {
+  margin: 0 auto;
+} */
 
 .logo {
   height: 6em;
