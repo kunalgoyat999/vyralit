@@ -154,7 +154,7 @@ const TestimonialsSection = () => {
         py: { xs: 0, sm: 8 },
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
-        gap: {xs: 0, md: 6},
+        gap: { xs: 0, md: 6 },
         overflow: "hidden",
         height: { xs: "auto", md: "60vh" },
       }}
@@ -191,7 +191,7 @@ const TestimonialsSection = () => {
           justifyContent: "center",
           pl: { md: 4 },
           mt: { xs: 2, md: 0 },
-          py: {xs: 4}
+          py: { xs: 4 },
         }}
       >
         <Typography variant="overline" sx={{ color: "#FAF8F8", mb: 1 }}>
@@ -222,7 +222,7 @@ const TestimonialsSection = () => {
           variant="body1"
           sx={{ color: "#aaa", maxWidth: 400, fontSize: { xs: 14, sm: 16 } }}
         >
-          At Humane, our clients’ satisfaction is our top priority. We take
+          At Vyralit, our clients’ satisfaction is our top priority. We take
           pride in the relationships we build and the successes we help create.
         </Typography>
         <Box

@@ -181,11 +181,11 @@ const StackedCardsMobile = ({ services }: { services: Service[] }) => {
                 px: 1,
               }}
             >
-              <Typography fontWeight={700} fontSize={15}>
+              <Typography fontWeight={700} fontSize={15} sx={{color: '#000'}}>
                 {svc.title}
               </Typography>
               {svc.subtitle && (
-                <Typography fontSize={13} color="text.secondary" mt={0.5}>
+                <Typography fontSize={13} sx={{color: '#444444'}} mt={0.5}>
                   {svc.subtitle}
                 </Typography>
               )}

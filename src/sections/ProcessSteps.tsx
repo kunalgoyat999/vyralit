@@ -136,7 +136,6 @@ const ProcessSteps = () => {
             md: "4rem 8rem 8rem",
             lg: "4rem 15rem 8rem",
           },
-          borderRadius: 4,
         }}
       >
         {/* ---------- heading ---------- */}

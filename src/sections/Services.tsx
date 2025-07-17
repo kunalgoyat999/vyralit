@@ -217,11 +217,11 @@ const Services = () => {
                       px: 1,
                     }}
                   >
-                    <Typography fontWeight="bold" fontSize="17px">
+                    <Typography fontWeight="bold" fontSize="17px" sx={{color: '#000'}}>
                       {service.title}
                     </Typography>
                     {service.subtitle && (
-                      <Typography fontSize="15px" color="text.secondary" mt={0.5}>
+                      <Typography fontSize="15px" sx={{color: '#444444'}} mt={0.5}>
                         {service.subtitle}
                       </Typography>
                     )}
