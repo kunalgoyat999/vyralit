@@ -89,6 +89,7 @@ const Services = () => {
           md: "4rem 8rem",
           lg: "4rem 15rem 2rem",
         },
+        backgroundColor: "#F8F9FA",
       }}
     >
       <Box sx={{ padding: { xs: "3rem 2rem 2rem" } }}>
@@ -215,7 +216,7 @@ const Services = () => {
               display: "flex",
               flexWrap: "wrap",
               justifyContent: "center",
-              gap: { xs: 4, md: 14 },
+              gap: { xs: 4, md: 12 },
               rowGap: { xs: 4, md: 14 },
               position: "relative",
               zIndex: 2,
@@ -312,7 +313,7 @@ const Services = () => {
           mb: 2,
           color: "#FFE3ED",
           textTransform: "uppercase",
-          fontSize: { xs: 32, sm: 48, md: 64, lg: 90 },
+          fontSize: { xs: 32, sm: 48, md: 64, lg: 80 },
           textAlign: "center",
         }}
       >

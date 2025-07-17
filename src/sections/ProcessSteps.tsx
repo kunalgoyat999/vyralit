@@ -145,6 +145,7 @@ const ProcessSteps = () => {
           sx={{
             fontSize: { xs: 28, sm: 36, md: 50 },
             mb: 4,
+            color: '#000'
           }}
         >
           <span

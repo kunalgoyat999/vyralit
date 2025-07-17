@@ -1,7 +1,7 @@
 import { Box, Typography, IconButton } from "@mui/material";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { LinkedIn } from "@mui/icons-material";
-// import brandImage from "../assets/brandLogo/VyralIt.png";
+import brandImage from "../assets/brandLogo/VyralIt.png";
 
 const Footer = () => {
   return (
@@ -23,12 +23,12 @@ const Footer = () => {
       <Box
         sx={{
           display: "flex",
-          flexDirection: "column",
-          alignItems: { xs: "center", sm: "flex-start" },
+          flexDirection: "row",
+          alignItems: { xs: "center", sm: "center" },
           gap: 1,
         }}
       >
-        {/* <Box
+        <Box
           component="img"
           src={brandImage}
           alt="VyralIt"
@@ -37,7 +37,7 @@ const Footer = () => {
               30, md: 150 }, // Use px/rem/% values
             height: "auto",
           }}
-        /> */}
+        />
         <Typography
           variant="caption"
           sx={{ letterSpacing: "2px", fontSize: 15 }}
