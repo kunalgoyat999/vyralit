@@ -37,9 +37,9 @@ const Clients: React.FC<ClientsProps> = ({ onContactClick }) => {
           lg: "4rem 15rem 2rem 15rem",
         },
         maxWidth: "1400px",
-        margin: "0 auto 0 1rem",
+        margin: "0 auto 0 0rem",
         textAlign: "left",
-        backgroundColor: "#F8F9FA",
+        backgroundColor: "#FFFAFA",
       }}
     >
       {/* Heading */}

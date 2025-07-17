@@ -15,8 +15,8 @@ const scrollTo = (id: any) => {
 };
 
 // ---------- Header Component ----------
-const Header = () => {
-  const [isSticky, setIsSticky] = useState(false);
+const Header = ({ isSticky }: { isSticky: boolean })  => {
+  // const [isSticky, setIsSticky] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -31,13 +31,13 @@ const Header = () => {
         { label: "CONTACT US", target: "contact" },
       ];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsSticky(window.scrollY > 0);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setIsSticky(window.scrollY > 0);
+  //   };
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
 
   return (
     <Box
@@ -84,7 +84,7 @@ const Header = () => {
 };
 
 // ---------- Slanted Banner ----------
-const SlantedBanner = ({ angle = -15, light = false }) => {
+const SlantedBanner = ({ angle = -15, light = false, isSticky = false }) => {
   const items = [
     "PERFORMANCE",
     "GROWTH",
@@ -119,7 +119,7 @@ const SlantedBanner = ({ angle = -15, light = false }) => {
         justifyContent: "space-around",
         alignItems: "left",
         py: { xs: 2, md: 3 },
-        zIndex: light ? 1 : 2,
+        zIndex: isSticky ?  (light ? 1: 2) : 999999 ,
         overflow: "hidden",
       }}
     >
@@ -165,6 +165,22 @@ const SlantedBanner = ({ angle = -15, light = false }) => {
 const Hero = () => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const boldTextArr = ["Vyral", "Strong", "Big", "Everywhere", "Unstoppable", "Forward"];
+  const [isSticky, setIsSticky] = useState(false);
+
+    useEffect(() => {
+    const handleScroll = () => {
+      setIsSticky(window.scrollY > 0);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentWordIndex((prev) => (prev + 1) % boldTextArr.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -175,7 +191,7 @@ const Hero = () => {
 
   return (
     <Box sx={{ margin: 0, overflow: "hidden" }}>
-      <Header />
+      <Header isSticky={isSticky}/>
 
       <Box
         sx={{
@@ -189,8 +205,8 @@ const Hero = () => {
         }}
       >
         {/* Diagonal Banners */}
-        <SlantedBanner light={true} angle={35} />
-        <SlantedBanner light={false} angle={-18} />
+        <SlantedBanner light={true} angle={35} isSticky={isSticky}/>
+        <SlantedBanner light={false} angle={-18} isSticky={isSticky}/>
 
         {/* Hero Text */}
         <Box

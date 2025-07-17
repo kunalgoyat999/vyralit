@@ -87,7 +87,7 @@ const Services = () => {
         padding: {
           sm: "6rem 4rem",
           md: "4rem 8rem",
-          lg: "4rem 15rem 2rem",
+          lg: "1rem 12rem 2rem",
         },
         backgroundColor: "#F8F9FA",
       }}
@@ -96,7 +96,7 @@ const Services = () => {
         <Typography
           variant="h4"
           gutterBottom
-          sx={{ fontSize: { xs: 40, sm: 40, md: 50 } }}
+          sx={{ fontSize: { xs: 40, sm: 40, md: 50 }, color: '#000' }}
         >
           <span
             style={{
@@ -112,7 +112,7 @@ const Services = () => {
         </Typography>
         <Typography
           variant="subtitle1"
-          sx={{ mb: 6, fontSize: { xs: 14, sm: 16, md: 18 } }}
+          sx={{ mb: 1, fontSize: { xs: 14, sm: 16, md: 18 }, color: '#1A1A1A' }}
         >
           We bring performance, creativity, and connection under one roof.
           Here's how we <i>Vyral It</i>
@@ -122,183 +122,115 @@ const Services = () => {
       {/* Cards Section */}
       <Box sx={{ position: "relative" }}>
         {isMobile ? (
-          // // ✅ Stacked Cards for Mobile
-          // <Box
-          //   sx={{
-          //     height: "300px",
-          //     position: "relative",
-          //     display: "flex",
-          //     justifyContent: "center",
-          //     alignItems: "center",
-          //   }}
-          // >
-          //   {services.map((service, index) => (
-          //     <Box
-          //       key={index}
-          //       sx={{
-          //         position: "absolute",
-          //         width: "80%",
-          //         height: 200,
-          //         top: `${index * 4}px`,
-          //         zIndex: services.length - index,
-          //         transform: `rotate(${service.rotateBox})`,
-          //         borderRadius: 3,
-          //         p: 2,
-          //         boxShadow: "1px 2px 15px rgba(0,0,0,0.2)",
-          //         display: "flex",
-          //         flexDirection: "column",
-          //         alignItems: "center",
-          //         backgroundColor: "#fff",
-          //       }}
-          //     >
-          //       {/* Circles */}
-          //       <Box sx={{ position: "relative", transform: "translateX(-50%)", mb: 1 }}>
-          //         <Box
-          //           sx={{
-          //             width: 36,
-          //             height: 33,
-          //             borderRadius: "50%",
-          //             backgroundColor: service.bigCircleColor,
-          //             position: "absolute",
-          //             top: 5,
-          //             left: service.outerLeft,
-          //             zIndex: -1,
-          //           }}
-          //         />
-          //         <Box
-          //           sx={{
-          //             width: 22,
-          //             height: 20,
-          //             borderRadius: "50%",
-          //             backgroundColor: service.smallCircleCOlor,
-          //           }}
-          //         />
-          //       </Box>
 
-          //       {/* Content */}
-          //       <Box
-          //         sx={{
-          //           width: "100%",
-          //           height: 140,
-          //           bgcolor: service.color,
-          //           borderRadius: 3,
-          //           textAlign: "center",
-          //           mt: "auto",
-          //           display: "flex",
-          //           flexDirection: "column",
-          //           justifyContent: "center",
-          //           alignItems: "center",
-          //           px: 1,
-          //         }}
-          //       >
-          //         <Typography fontWeight="bold" fontSize="15px">
-          //           {service.title}
-          //         </Typography>
-          //         {service.subtitle && (
-          //           <Typography
-          //             fontSize="13px"
-          //             color="text.secondary"
-          //             mt={0.5}
-          //           >
-          //             {service.subtitle}
-          //           </Typography>
-          //         )}
-          //       </Box>
-          //     </Box>
-          //   ))}
-          // </Box>
-            <StackedCardsMobile services={services} />
+          <StackedCardsMobile services={services} />
 
         ) : (
-          // 🖥️ Desktop View - Grid Cards
           <Box
             sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              gap: { xs: 4, md: 12 },
-              rowGap: { xs: 4, md: 14 },
               position: "relative",
-              zIndex: 2,
+              width: "100%",
+              overflow: "hidden",
+              py: { xs: 4, md: 8 },
+              "::before": {
+                content: '""',
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                backgroundImage:
+                  "repeating-linear-gradient(to bottom, transparent, transparent 34px, #EDEDED 34px, #EDEDED 35px)", // Adjust spacing as per design
+                zIndex: 0,
+              },
             }}
           >
-            {services.map((service, index) => (
-              <Box
-                key={index}
-                sx={{
-                  flexBasis: {
-                    xs: "100%",
-                    sm: "45%",
-                    md: "30%",
-                    lg: "220px",
-                  },
-                  height: 200,
-                  borderRadius: 3,
-                  p: 2,
-                  transform: `rotate(${service.rotateBox})`,
-                  boxShadow: "1px 2px 15px rgba(0,0,0,0.2)",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  backgroundColor: "#fff",
-                }}
-              >
-                {/* Circles */}
-                <Box sx={{ position: "relative", transform: "translateX(-50%)", mb: 1 }}>
-                  <Box
-                    sx={{
-                      width: 36,
-                      height: 33,
-                      borderRadius: "50%",
-                      backgroundColor: service.bigCircleColor,
-                      position: "absolute",
-                      top: 5,
-                      left: service.outerLeft,
-                      zIndex: -1,
-                    }}
-                  />
-                  <Box
-                    sx={{
-                      width: 22,
-                      height: 20,
-                      borderRadius: "50%",
-                      backgroundColor: service.smallCircleCOlor,
-                    }}
-                  />
-                </Box>
-
-                {/* Content */}
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                gap: { xs: 4, md: 12 },
+                rowGap: { xs: 4, md: 14 },
+                position: "relative",
+                zIndex: 2, // Keep cards above lines
+              }}
+            >
+              {services.map((service, index) => (
                 <Box
+                  key={index}
                   sx={{
-                    width: "100%",
-                    height: 140,
-                    bgcolor: service.color,
+                    flexBasis: {
+                      xs: "100%",
+                      sm: "45%",
+                      md: "30%",
+                      lg: "220px",
+                    },
+                    height: 200,
                     borderRadius: 3,
-                    textAlign: "center",
-                    mt: "auto",
+                    p: 2,
+                    transform: `rotate(${service.rotateBox})`,
+                    boxShadow: "1px 2px 15px rgba(0,0,0,0.2)",
                     display: "flex",
                     flexDirection: "column",
-                    justifyContent: "center",
                     alignItems: "center",
-                    px: 1,
+                    backgroundColor: "#fff",
                   }}
                 >
-                  <Typography fontWeight="bold" fontSize="17px">
-                    {service.title}
-                  </Typography>
-                  {service.subtitle && (
-                    <Typography
-                      fontSize="15px"
-                      color="text.secondary"
-                      mt={0.5}
-                    >
-                      {service.subtitle}
+                  {/* Circles */}
+                  <Box sx={{ position: "relative", transform: "translateX(-50%)", mb: 1 }}>
+                    <Box
+                      sx={{
+                        width: 36,
+                        height: 33,
+                        borderRadius: "50%",
+                        backgroundColor: service.bigCircleColor,
+                        position: "absolute",
+                        top: 5,
+                        left: service.outerLeft,
+                        zIndex: -1,
+                      }}
+                    />
+                    <Box
+                      sx={{
+                        width: 22,
+                        height: 20,
+                        borderRadius: "50%",
+                        backgroundColor: service.smallCircleCOlor,
+                      }}
+                    />
+                  </Box>
+
+                  {/* Content */}
+                  <Box
+                    sx={{
+                      width: "100%",
+                      height: 140,
+                      bgcolor: service.color,
+                      borderRadius: 3,
+                      textAlign: "center",
+                      mt: "auto",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      px: 1,
+                    }}
+                  >
+                    <Typography fontWeight="bold" fontSize="17px">
+                      {service.title}
                     </Typography>
-                  )}
+                    {service.subtitle && (
+                      <Typography fontSize="15px" color="text.secondary" mt={0.5}>
+                        {service.subtitle}
+                      </Typography>
+                    )}
+                  </Box>
                 </Box>
-              </Box>
-            ))}
+              ))}
+            </Box>
           </Box>
+
         )}
       </Box>
 
