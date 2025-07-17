@@ -9,22 +9,31 @@ import Testimonials from "./sections/Testimonials";
 import Contact from "./sections/Contact";
 import Footer from "./sections/Footer";
 import { Box } from "@mui/material";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 function App() {
+    const [canScroll, setCanScroll] = useState(true);
+
    const contactRef = useRef<HTMLDivElement | null>(null);
 
   const scrollToContact = () => {
     contactRef.current?.scrollIntoView({ behavior: "smooth" });
   };
   return (
+   <div
+  style={{
+    scrollBehavior: "smooth",
+    overflowY: canScroll ? "auto" : "hidden",
+    height: "100vh",
+  }}
+>
     <div className="bg-black text-white">
       <Box sx={{ overflowX: 'hidden' }}>
      <Box id="home">
         <Hero />
       </Box>
       <Box id="services">
-        <Services />
+        <Services setCanScroll={setCanScroll}/>
       </Box> 
       <ProcessSteps />
       <Clients onContactClick={scrollToContact} />
@@ -34,6 +43,7 @@ function App() {
       </Box>
       <Footer />
       </Box>
+    </div>
     </div>
   );
 }

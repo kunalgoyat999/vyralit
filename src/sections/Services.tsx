@@ -9,7 +9,7 @@ import { useTheme } from "@mui/material/styles";
 import { keyframes } from "@emotion/react";
 import StackedCardsMobile from "../components/ui/StackedCardsMobile ";
 
-const services = [
+export const services = [
   {
     title: "Performance Marketing -",
     subtitle: "Meta, Google, LinkedIn",
@@ -77,7 +77,7 @@ const scrollLeft = keyframes`
   100% { transform: translateX(-100%); }
 `;
 
-const Services = () => {
+const Services = ({ setCanScroll }: { setCanScroll: (canScroll: boolean) => void }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -89,7 +89,7 @@ const Services = () => {
           md: "4rem 8rem",
           lg: "1rem 12rem 2rem",
         },
-        backgroundColor: "#F8F9FA",
+        backgroundColor: "#fff",
       }}
     >
       <Box sx={{ padding: { xs: "3rem 2rem 2rem" } }}>
@@ -123,7 +123,7 @@ const Services = () => {
       <Box sx={{ position: "relative" }}>
         {isMobile ? (
 
-          <StackedCardsMobile services={services} />
+          <StackedCardsMobile setCanScroll={setCanScroll} />
 
         ) : (
           <Box
