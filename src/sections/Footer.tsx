@@ -33,8 +33,10 @@ const Footer = () => {
           src={brandImage}
           alt="VyralIt"
           sx={{
-            maxWidth: { xs: 
-              30, md: 150 }, // Use px/rem/% values
+            maxWidth: {
+              xs:
+                30, md: 150
+            }, // Use px/rem/% values
             height: "auto",
           }}
         />
@@ -59,15 +61,23 @@ const Footer = () => {
         <Typography variant="body1" sx={{ fontWeight: "bold" }}>
           FOLLOW US
         </Typography>
-        {[InstagramIcon,LinkedIn].map(
-          (Icon, idx) => (
+        {[
+          { icon: InstagramIcon, url: "https://www.instagram.com/vyral_it" },
+          { icon: LinkedIn, url: "https://www.linkedin.com/company/vyral-it/" }
+        ].map(
+          ({ icon: Icon, url }, idx) => (
             <IconButton
               key={idx}
+              href={url}
+              component="a"
+              target="_blank"
+              rel="noopener noreferrer"
               sx={{
                 color: "#fff",
                 border: "1px solid #fff",
                 "&:hover": { backgroundColor: "#222" },
               }}
+
             >
               <Icon />
             </IconButton>

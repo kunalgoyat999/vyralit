@@ -193,7 +193,7 @@ const ContactSection = forwardRef<HTMLDivElement, Props>((props, ref) => {
               },
               {
                 icon: <MailOutlineIcon sx={{ color: "#FF217D" }} />,
-                text: "vyralitofficial@gmail.com",
+                text: "info@vyralit.in",
               },
               {
                 icon: <LanguageIcon sx={{ color: "#FF217D" }} />,
