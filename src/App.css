@@ -1,13 +1,12 @@
-html,
-body {
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
+  overflow-x: hidden; 
+  overflow-y: auto;   
 }
 
-.cards-wrapper {
-  overscroll-behavior: contain;
-}
+
 
 /* #root {
   margin: 0 auto;

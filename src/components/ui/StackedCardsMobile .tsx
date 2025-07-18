@@ -188,31 +188,11 @@ const [index, setIndex] = useState(0);
   // }, [hiddenCount, services.length]);
 
   return (
-    //  <div
-    //   ref={containerRef}
-    //   style={{
-    //     height: "100vh",
-    //     overflow: "hidden",
-    //     position: "relative",
-    //     background: "#fff",
-    //     touchAction: "none",
-    //   }}
-    // >
     <Box
       ref={containerRef}
       className="cards-wrapper"
-      // sx={{
-      //   position: "relative",
-      //   overflow: "hidden",
-      //   minHeight: "600px", // Enough to avoid white space issue
-      //   display: "flex",
-      //   alignItems: "center",
-      //   justifyContent: "center",
-      //   mb: 4,
-      // }}
       style={{
         height: "50vh",
-        overflow: "hidden",
         position: "relative",
         background: "#fff",
         touchAction: "none",
@@ -301,44 +281,6 @@ const [index, setIndex] = useState(0);
         );
       })}
     </Box>
-    //  <div
-    //   ref={containerRef}
-    //   style={{
-    //     height: "100vh",
-    //     overflow: "hidden",
-    //     position: "relative",
-    //     background: "#fff",
-    //     touchAction: "none",
-    //   }}
-    // >
-    //   {cards.map((card, i) => (
-    //     <motion.div
-    //       key={i}
-    //       initial={{ x: 0, opacity: 1 }}
-    //       animate={i < index ? { x: -400, opacity: 0 } : { x: 0, opacity: 1 }}
-    //       transition={{ duration: 0.5 }}
-    //       style={{
-    //         position: "absolute",
-    //         width: "90%",
-    //         height: "60%",
-    //         margin: "auto",
-    //         background: "#fff",
-    //         boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-    //         zIndex: cards.length - i,
-    //         top: "20%",
-    //         left: "5%",
-    //         pointerEvents: "none",
-    //         display: "flex",
-    //         justifyContent: "center",
-    //         alignItems: "center",
-    //         fontSize: 24,
-    //         fontWeight: 600,
-    //       }}
-    //     >
-    //       {card}
-    //     </motion.div>
-    //   ))}
-    // </div>
   );
 };
 
