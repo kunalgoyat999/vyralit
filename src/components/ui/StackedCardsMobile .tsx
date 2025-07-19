@@ -244,7 +244,7 @@ const [index, setIndex] = useState(0);
               />
               <Box
                 sx={{
-                  width: 22,
+                  width: 15,
                   height: 20,
                   borderRadius: "50%",
                   bgcolor: svc.smallCircleCOlor,
@@ -255,7 +255,7 @@ const [index, setIndex] = useState(0);
             {/* Card Content */}
             <Box
               sx={{
-                width: "100%",
+                width: "80%",
                 height: 140,
                 bgcolor: svc.color,
                 borderRadius: 3,

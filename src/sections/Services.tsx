@@ -764,23 +764,23 @@ const Services = () => {
 
       <Box sx={{ position: "relative" }}>
         {isMobile ? (
-          <Box sx={{ px: 2 }}>
+          <Box sx={{ px: 2, width: "80%", justifyContent: "center", mx: "auto" }}>
             {services.map((service, index) => (
               <motion.div
                 key={index}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: false, amount: 0.2 }}
-                transition={{ duration: 0.3, delay: index * 0.15 }}
+                transition={{ duration: 0.2, delay: index * 0.05 }}
                 variants={{
-                  hidden: { opacity: 0, x: 60 },
+                  hidden: { opacity: 0, x: 30 },
                   visible: { opacity: 1, x: 0 },
                 }}
                 style={{ marginBottom: "2rem" }}
               >
                 <Box
                   sx={{
-                    height: 130,
+                    // height: 130,
                     borderRadius: 3,
                     p: 2,
                     boxShadow: "1px 2px 15px rgba(0,0,0,0.2)",
@@ -795,7 +795,7 @@ const Services = () => {
                     sx={{
                       position: "relative",
                       transform: "translateX(-50%)",
-                      mb: 1,
+                      mb: 4,
                     }}
                   >
                     <Box
@@ -808,22 +808,20 @@ const Services = () => {
                         top: 5,
                         left: service.outerLeft,
                         zIndex: -1,
-                      }}
-                    />
+                      }} />
                     <Box
                       sx={{
                         width: 22,
                         height: 20,
                         borderRadius: "50%",
                         backgroundColor: service.smallCircleCOlor,
-                      }}
-                    />
+                      }} />
                   </Box>
 
                   {/* Content */}
                   <Box
                     sx={{
-                      width: "100%",
+                      width: "80%",
                       height: 80,
                       bgcolor: service.color,
                       borderRadius: 3,
@@ -833,7 +831,8 @@ const Services = () => {
                       flexDirection: "column",
                       justifyContent: "center",
                       alignItems: "center",
-                      px: 1,
+                      px: 2,
+                      py: 2
                     }}
                   >
                     <Typography fontWeight="bold" fontSize={14}>
@@ -952,6 +951,7 @@ const Services = () => {
             color: "#FFE3ED",
             textTransform: "uppercase",
             fontSize: { xs: 32, sm: 48, md: 64, lg: 90 },
+            width: "100%",
             textAlign: "center",
           }}
         >

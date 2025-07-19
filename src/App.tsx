@@ -23,7 +23,7 @@ function App() {
     <div
       style={{
         scrollBehavior: "smooth",
-        overflowY: canScroll ? "auto" : "hidden",
+        // overflowY: canScroll ? "auto" : "hidden",
         height: "100vh",
       }}
     >
