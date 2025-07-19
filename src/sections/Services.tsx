@@ -257,9 +257,6 @@
 
 // export default Services;
 
-
-
-
 // import { Box, Typography, useMediaQuery } from "@mui/material";
 // import img1 from "../assets/services/1st.png";
 // import img2 from "../assets/services/2nd.png";
@@ -639,13 +636,10 @@
 //       </Box>
 //     </Box>
 
-
 //   );
 // };
 
 // export default Services;
-
-
 
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -733,13 +727,14 @@ const Services = () => {
           md: "4rem 8rem",
           lg: "4rem 15rem 2rem 15rem",
         },
+        backgroundColor: "#fff",
       }}
     >
       <Box sx={{ padding: { xs: "3rem 2rem 2rem 2rem" } }}>
         <Typography
           variant="h4"
           gutterBottom
-          sx={{ fontSize: { xs: 40, sm: 40, md: 50 } }}
+          sx={{ fontSize: { xs: 40, sm: 40, md: 50 }, color: '#000' }}
         >
           <span
             style={{
@@ -755,7 +750,7 @@ const Services = () => {
         </Typography>
         <Typography
           variant="subtitle1"
-          sx={{ mb: 6, fontSize: { xs: 14, sm: 16, md: 18 } }}
+          sx={{ mb: 4, fontSize: { xs: 14, sm: 16, md: 18 }, color: "#1C1C1C" }}
         >
           We bring performance, creativity, and connection under one roof.
           Here's how we <i>Vyral It</i>
@@ -764,7 +759,9 @@ const Services = () => {
 
       <Box sx={{ position: "relative" }}>
         {isMobile ? (
-          <Box sx={{ px: 2, width: "80%", justifyContent: "center", mx: "auto" }}>
+          <Box
+            sx={{ px: 2, width: "80%", justifyContent: "center", mx: "auto" }}
+          >
             {services.map((service, index) => (
               <motion.div
                 key={index}
@@ -780,7 +777,6 @@ const Services = () => {
               >
                 <Box
                   sx={{
-                    // height: 130,
                     borderRadius: 3,
                     p: 2,
                     boxShadow: "1px 2px 15px rgba(0,0,0,0.2)",
@@ -808,14 +804,16 @@ const Services = () => {
                         top: 5,
                         left: service.outerLeft,
                         zIndex: -1,
-                      }} />
+                      }}
+                    />
                     <Box
                       sx={{
                         width: 22,
                         height: 20,
                         borderRadius: "50%",
                         backgroundColor: service.smallCircleCOlor,
-                      }} />
+                      }}
+                    />
                   </Box>
 
                   {/* Content */}
@@ -832,14 +830,14 @@ const Services = () => {
                       justifyContent: "center",
                       alignItems: "center",
                       px: 2,
-                      py: 2
+                      py: 2,
                     }}
                   >
-                    <Typography fontWeight="bold" fontSize={14}>
+                    <Typography fontWeight="bold" fontSize={14} sx={{color: '#000'}}>
                       {service.title}
                     </Typography>
                     {service.subtitle && (
-                      <Typography fontSize={12} color="text.secondary" mt={0.5}>
+                      <Typography fontSize={12} color="text.secondary" mt={0.5} sx={{color: '#1C1C1C'}}>
                         {service.subtitle}
                       </Typography>
                     )}
@@ -926,11 +924,11 @@ const Services = () => {
                     px: 1,
                   }}
                 >
-                  <Typography fontWeight="bold" fontSize={15}>
+                  <Typography fontWeight="bold" fontSize={15} sx={{color: '#000'}}>
                     {service.title}
                   </Typography>
                   {service.subtitle && (
-                    <Typography fontSize={13} color="text.secondary" mt={0.5}>
+                    <Typography fontSize={13} color="text.secondary" mt={0.5} sx={{color: '#1C1C1C'}}>
                       {service.subtitle}
                     </Typography>
                   )}

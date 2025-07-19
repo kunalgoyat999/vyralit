@@ -213,7 +213,7 @@ const Hero = () => {
           sx={{
             position: "relative",
             zIndex: 3,
-            paddingLeft: { xs: "3rem", md: "10rem" },
+            paddingLeft: { xs: "2rem", md: "10rem" },
             textAlign: { xs: "left", md: "left" },
             mt: { xs: 3, md: 0 },
           }}
