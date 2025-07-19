@@ -185,7 +185,7 @@ const ProcessSteps = () => {
                   flex: 1,
                   position: "relative",
                   scrollMarginTop: "40vh",
-                  mb: isMobile ? 6 : 0,
+                  mb: isMobile ? 3 : 0,
                 }}
               >
 

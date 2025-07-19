@@ -14,6 +14,8 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LanguageIcon from "@mui/icons-material/Language";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Button from "../components/ui/Button";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/material.css";
 
 type Props = {};
 
@@ -83,7 +85,7 @@ const ContactSection = forwardRef<HTMLDivElement, Props>((props, ref) => {
 
     try {
       const baseUrl =
-        "https://script.google.com/macros/s/AKfycbxDHLZsNG6Sf5M-D9WuOlHZI0XExJsRTiwivnfpxhqwzgT-Kgum9Vm1kdPFc0Aev00h/exec";
+        "https://script.google.com/macros/s/AKfycbxsODxr_SHeq7gfTfIfOcHzp03x0VLt_0Cf5IqTC2CaeWVWEOG7cO9in5O_H99_O9wE/exec";
 
       const params = new URLSearchParams(formData).toString();
       const url = `${baseUrl}?${params}`;
@@ -103,7 +105,6 @@ const ContactSection = forwardRef<HTMLDivElement, Props>((props, ref) => {
       setIsSubmitting(false); // stop loading in both success/failure
     }
   };
-
 
   return (
     <Box
@@ -227,7 +228,7 @@ const ContactSection = forwardRef<HTMLDivElement, Props>((props, ref) => {
           md={7}
           order={{ xs: 1, md: 2 }}
           flex={{ md: 2 }}
-          sx={{ width: { xs: '100%', md: 'auto' } }}
+          sx={{ width: { xs: "100%", md: "auto" } }}
         >
           <Box
             display="flex"
@@ -271,27 +272,52 @@ const ContactSection = forwardRef<HTMLDivElement, Props>((props, ref) => {
               />
             </Box>
 
-            <TextField
-              fullWidth
-              label="Phone"
-              name="phone"
-              variant="standard"
-              type="tel"
-              value={formData.phone}
-              onChange={handleChange}
-              onKeyPress={(e) => {
-                if (!/[0-9]/.test(e.key)) {
-                  e.preventDefault(); // block letters and special chars
-                }
-              }}
-              error={!!errors.phone}
-              helperText={errors.phone}
-              InputLabelProps={{
-                shrink: true,
-                sx: { fontSize: { xs: "1.4rem" }, fontWeight: "bold" },
-              }}
-            />
+            <Box>
+              <Typography
+                sx={{
+                  fontSize: { xs: "1.1rem" },
+                  fontWeight: "bold",
+                  mb: 0.2,
+                  color: "#555", // Slightly lighter than black
+                  // backgroundColor: 'red'
+                }}
+              >
+                Phone
+              </Typography>
 
+              <PhoneInput
+                country={"in"}
+                value={formData.phone}
+                onChange={(phone) => setFormData({ ...formData, phone })}
+                inputProps={{
+                  name: "",
+                  required: true,
+                  autoFocus: false,
+                  // placeholder: '',
+                  label: "",
+                }}
+                specialLabel=""
+                inputStyle={{
+                  width: "100%",
+                  border: "none",
+                  borderBottom: "1px solid rgba(0, 0, 0, 0.42)",
+                  borderRadius: 0,
+                  fontSize: "1.4rem",
+                  fontWeight: 400,
+                  color: "#555",
+                  paddingLeft: "50px",
+                  paddingBottom: "5px",
+                  boxShadow: "none",
+                }}
+                buttonStyle={{
+                  border: "none",
+                  background: "transparent",
+                }}
+                containerStyle={{
+                  width: "100%",
+                }}
+              />
+            </Box>
 
             <TextField
               fullWidth
@@ -324,9 +350,10 @@ const ContactSection = forwardRef<HTMLDivElement, Props>((props, ref) => {
                 disabled={isSubmitting}
                 sx={{ minWidth: "220px" }}
               >
-                {isSubmitting ? "Submitting..." : "Book your Free Strategy Call"}
+                {isSubmitting
+                  ? "Submitting..."
+                  : "Book your Free Strategy Call"}
               </Button>
-
             </Box>
           </Box>
         </Grid>
@@ -336,4 +363,3 @@ const ContactSection = forwardRef<HTMLDivElement, Props>((props, ref) => {
 });
 
 export default ContactSection;
-

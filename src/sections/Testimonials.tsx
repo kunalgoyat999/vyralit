@@ -222,7 +222,7 @@ const TestimonialsSection = () => {
           variant="body1"
           sx={{ color: "#aaa", maxWidth: 400, fontSize: { xs: 14, sm: 16 } }}
         >
-          At Vyralit, our clients’ satisfaction is our top priority. We take
+          At Vyralit, our client's satisfaction is our top priority. We take
           pride in the relationships we build and the successes we help create.
         </Typography>
         <Box

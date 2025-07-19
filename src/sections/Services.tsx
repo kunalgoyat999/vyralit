@@ -662,6 +662,7 @@ const services = [
     rotateBox: "9deg",
     imagePath: img1,
     outerLeft: -4,
+    phoneRotateBox: "5deg",
   },
   {
     title: "UI / UX and Graphic Design",
@@ -672,6 +673,7 @@ const services = [
     rotateBox: "-9deg",
     imagePath: img2,
     outerLeft: -1,
+     phoneRotateBox: "-6deg",
   },
   {
     title: "Social Media & Community",
@@ -682,6 +684,7 @@ const services = [
     rotateBox: "9deg",
     imagePath: img3,
     outerLeft: -2,
+    phoneRotateBox: "2deg",
   },
   {
     title: "Search Engine Optimization (SEO)",
@@ -692,6 +695,7 @@ const services = [
     rotateBox: "-7deg",
     imagePath: img4,
     outerLeft: -2,
+    phoneRotateBox: "8deg",
   },
   {
     title: "Email & Whatsapp Marketing",
@@ -702,6 +706,7 @@ const services = [
     rotateBox: "-2deg",
     imagePath: img5,
     outerLeft: -1,
+    phoneRotateBox: "-6deg",
   },
   {
     title: "Content Creation",
@@ -712,6 +717,7 @@ const services = [
     rotateBox: "-9deg",
     imagePath: img6,
     outerLeft: -2,
+    phoneRotateBox: "6deg",
   },
 ];
 
@@ -734,7 +740,7 @@ const Services = () => {
         <Typography
           variant="h4"
           gutterBottom
-          sx={{ fontSize: { xs: 40, sm: 40, md: 50 }, color: '#000' }}
+          sx={{ fontSize: { xs: 40, sm: 40, md: 50 }, color: "#000" }}
         >
           <span
             style={{
@@ -759,39 +765,201 @@ const Services = () => {
 
       <Box sx={{ position: "relative" }}>
         {isMobile ? (
+        <Box
+  sx={{
+    position: "relative",
+    width: "100%",
+  }}
+>
+  {/* Background lines */}
+  <Box
+    sx={{
+      position: "absolute",
+      top: -50,
+      left: 0,
+      bottom: 50,
+      width: "100%",
+      height: "100%",
+      backgroundImage:
+        "repeating-linear-gradient(to bottom, transparent, transparent 34px, #EDEDED 34px, #EDEDED 35px)",
+        //  backgroundImage: "linear-gradient(to bottom, #EDEDED 1px, transparent 34px)",
+  backgroundSize: "100% 35px",
+      zIndex: 0,
+      pointerEvents: "none",
+    }}
+  />
+            <Box
+              sx={{
+                px: 2,
+                width: "70%",
+                justifyContent: "center",
+                mx: "auto",
+                zIndex: 2,
+                
+                // display: "flex",
+                // flexWrap: "wrap",
+                // justifyContent: "center",
+                // gap: { xs: 4, md: 14 },
+                // rowGap: { xs: 4, md: 14 },
+                position: "relative",
+              }}
+            >
+              {services.map((service, index) => (
+                <motion.div
+                  key={index}
+                  initial="hidden"
+                  
+                  whileInView="visible"
+                  viewport={{ once: false, amount: 0.2 }}
+                  transition={{ duration: 0.2, delay: index * 0.05 }}
+                  variants={{
+                    hidden: { opacity: 0, x: 30 },
+                    visible: { opacity: 1, x: 0 },
+                  }}
+                  style={{ marginBottom: "4rem", }}
+                >
+                  <Box
+                    sx={{
+                      borderRadius: 3,
+                      p: 2,
+                      boxShadow: "1px 2px 15px rgba(0,0,0,0.2)",
+                      backgroundColor: "#fff",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      bgcolor: service.color,
+                      transform: `rotate(${service.phoneRotateBox})`,
+                    }}
+                  >
+                    {/* Circles */}
+                    <Box
+                      sx={{
+                        position: "relative",
+                        transform: "translateX(-50%)",
+                        mb: 4,
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          width: 36,
+                          height: 33,
+                          borderRadius: "50%",
+                          backgroundColor: service.bigCircleColor,
+                          position: "absolute",
+                          top: 5,
+                          left: service.outerLeft,
+                          zIndex: -1,
+                        }}
+                      />
+                      <Box
+                        sx={{
+                          width: 22,
+                          height: 20,
+                          borderRadius: "50%",
+                          backgroundColor: service.smallCircleCOlor,
+                        }}
+                      />
+                    </Box>
+
+                    {/* Content */}
+                    <Box
+                      sx={{
+                        width: "70%",
+                        height: 80,
+                       bgcolor: "#fff",
+                        borderRadius: 3,
+                        textAlign: "center",
+                        mt: "auto",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        px: 2,
+                        py: 2,
+                        boxShadow: "1px 2px 5px rgba(0,0,0,0.2)",
+                      }}
+                    >
+                      <Typography
+                        fontWeight="bold"
+                        fontSize={14}
+                        sx={{ color: "#000" }}
+                      >
+                        {service.title}
+                      </Typography>
+                      {service.subtitle && (
+                        <Typography
+                          fontSize={12}
+                          color="text.secondary"
+                          mt={0.5}
+                          sx={{ color: "#1C1C1C" }}
+                        >
+                          {service.subtitle}
+                        </Typography>
+                      )}
+                    </Box>
+                  </Box>
+                </motion.div>
+              ))}
+            </Box>
+          </Box>
+        ) : (
+          // 🖥 Desktop View - unchanged
           <Box
-            sx={{ px: 2, width: "80%", justifyContent: "center", mx: "auto" }}
+            sx={{
+              position: "relative",
+              width: "100%",
+              overflow: "hidden",
+              py: { xs: 4, md: 8 },
+              "::before": {
+                content: '""',
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                backgroundImage:
+                  "repeating-linear-gradient(to bottom, transparent, transparent 34px, #EDEDED 34px, #EDEDED 35px)", // Adjust spacing as per design
+                zIndex: 0,
+              },
+            }}
           >
-            {services.map((service, index) => (
-              <motion.div
-                key={index}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: false, amount: 0.2 }}
-                transition={{ duration: 0.2, delay: index * 0.05 }}
-                variants={{
-                  hidden: { opacity: 0, x: 30 },
-                  visible: { opacity: 1, x: 0 },
-                }}
-                style={{ marginBottom: "2rem" }}
-              >
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                gap: { xs: 4, md: 4, lg: 8 },
+                rowGap: { xs: 4, md: 14 },
+                position: "relative",
+                zIndex: 2,
+              }}
+            >
+              {services.map((service, index) => (
                 <Box
+                  key={index}
                   sx={{
+                    flexBasis: {
+                      xs: "100%",
+                      sm: "45%",
+                      md: "30%",
+                      lg: "220px",
+                    },
+                    height: 200,
                     borderRadius: 3,
                     p: 2,
+                    transform: `rotate(${service.rotateBox})`,
                     boxShadow: "1px 2px 15px rgba(0,0,0,0.2)",
-                    backgroundColor: "#fff",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
+                    backgroundColor: "#fff",
                   }}
                 >
-                  {/* Circles */}
                   <Box
                     sx={{
                       position: "relative",
                       transform: "translateX(-50%)",
-                      mb: 4,
+                      mb: 1,
                     }}
                   >
                     <Box
@@ -816,11 +984,10 @@ const Services = () => {
                     />
                   </Box>
 
-                  {/* Content */}
                   <Box
                     sx={{
-                      width: "80%",
-                      height: 80,
+                      width: "100%",
+                      height: 140,
                       bgcolor: service.color,
                       borderRadius: 3,
                       textAlign: "center",
@@ -829,132 +996,30 @@ const Services = () => {
                       flexDirection: "column",
                       justifyContent: "center",
                       alignItems: "center",
-                      px: 2,
-                      py: 2,
+                      px: 1,
                     }}
                   >
-                    <Typography fontWeight="bold" fontSize={14} sx={{color: '#000'}}>
+                    <Typography
+                      fontWeight="bold"
+                      fontSize={15}
+                      sx={{ color: "#000" }}
+                    >
                       {service.title}
                     </Typography>
                     {service.subtitle && (
-                      <Typography fontSize={12} color="text.secondary" mt={0.5} sx={{color: '#1C1C1C'}}>
+                      <Typography
+                        fontSize={13}
+                        color="text.secondary"
+                        mt={0.5}
+                        sx={{ color: "#1C1C1C" }}
+                      >
                         {service.subtitle}
                       </Typography>
                     )}
                   </Box>
                 </Box>
-              </motion.div>
-            ))}
-          </Box>
-        ) : (
-          // 🖥 Desktop View - unchanged
-          <Box
-  sx={{
-    position: "relative",
-    width: "100%",
-    overflow: "hidden",
-    py: { xs: 4, md: 8 },
-    "::before": {
-      content: '""',
-      position: "absolute",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: "100%",
-      backgroundImage:
-        "repeating-linear-gradient(to bottom, transparent, transparent 34px, #EDEDED 34px, #EDEDED 35px)", // Adjust spacing as per design
-      zIndex: 0,
-    },
-  }}
->
-          <Box
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              gap: { xs: 4, md: 14 },
-              rowGap: { xs: 4, md: 14 },
-              position: "relative",
-              zIndex: 2,
-            }}
-          >
-            {services.map((service, index) => (
-              <Box
-                key={index}
-                sx={{
-                  flexBasis: {
-                    xs: "100%",
-                    sm: "45%",
-                    md: "30%",
-                    lg: "220px",
-                  },
-                  height: 200,
-                  borderRadius: 3,
-                  p: 2,
-                  transform: `rotate(${service.rotateBox})`,
-                  boxShadow: "1px 2px 15px rgba(0,0,0,0.2)",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  backgroundColor: "#fff",
-                }}
-              >
-                <Box
-                  sx={{
-                    position: "relative",
-                    transform: "translateX(-50%)",
-                    mb: 1,
-                  }}
-                >
-                  <Box
-                    sx={{
-                      width: 36,
-                      height: 33,
-                      borderRadius: "50%",
-                      backgroundColor: service.bigCircleColor,
-                      position: "absolute",
-                      top: 5,
-                      left: service.outerLeft,
-                      zIndex: -1,
-                    }}
-                  />
-                  <Box
-                    sx={{
-                      width: 22,
-                      height: 20,
-                      borderRadius: "50%",
-                      backgroundColor: service.smallCircleCOlor,
-                    }}
-                  />
-                </Box>
-
-                <Box
-                  sx={{
-                    width: "100%",
-                    height: 140,
-                    bgcolor: service.color,
-                    borderRadius: 3,
-                    textAlign: "center",
-                    mt: "auto",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    px: 1,
-                  }}
-                >
-                  <Typography fontWeight="bold" fontSize={15} sx={{color: '#000'}}>
-                    {service.title}
-                  </Typography>
-                  {service.subtitle && (
-                    <Typography fontSize={13} color="text.secondary" mt={0.5} sx={{color: '#1C1C1C'}}>
-                      {service.subtitle}
-                    </Typography>
-                  )}
-                </Box>
-              </Box>
-            ))}
-          </Box>
+              ))}
+            </Box>
           </Box>
         )}
 
