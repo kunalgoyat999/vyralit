@@ -9,23 +9,16 @@ import {
 import { keyframes } from "@emotion/react";
 
 const ProcessSteps = () => {
-  /* ---------------- state ---------------- */
   const [activeStep, setActiveStep] = useState("analyse");
-
-  /* ---------------- theme / breakpoints ---------------- */
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  /* ---------------- refs for IntersectionObserver ---------------- */
-  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  /* ---------------- marquee keyframes ---------------- */
   const scrollLeft = keyframes`
     0%   { transform: translateX(100%); }
     100% { transform: translateX(-100%); }
   `;
+  const stepRefs = useRef<Array<HTMLDivElement | null>>([]);
 
-  /* ---------------- step data ---------------- */
   const steps = [
     {
       key: "analyse",
@@ -78,55 +71,36 @@ const ProcessSteps = () => {
   useEffect(() => {
     if (!isMobile) return;
 
-    const stepElements = stepRefs.current.filter(Boolean) as HTMLDivElement[];
+    const observerOptions = {
+      root: null,
+      rootMargin: "-40% 0px -40% 0px", // top and bottom thresholds
+      threshold: 0.1,
+    };
 
-    const handleScroll = () => {
-      let closestStep = "";
-      let minDistance = Infinity;
-
-      stepElements.forEach((el) => {
-        const rect = el.getBoundingClientRect();
-        const centerY = rect.top + rect.height / 2;
-        const screenCenter = window.innerHeight / 2;
-        const distance = Math.abs(centerY - screenCenter);
-
-        if (distance < minDistance) {
-          minDistance = distance;
-          closestStep = el.getAttribute("data-key") || "";
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const stepKey = entry.target.getAttribute("data-key");
+          if (stepKey) {
+            setActiveStep(stepKey);
+          }
         }
       });
+    }, observerOptions);
 
-      setActiveStep(closestStep);
-    };
-
-    // Debounce with requestAnimationFrame for smoothness
-    let ticking = false;
-    const onScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          handleScroll();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    // Initial run
-    handleScroll();
+    stepRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
 
     return () => {
-      window.removeEventListener("scroll", onScroll);
+      stepRefs.current.forEach((ref) => {
+        if (ref) observer.unobserve(ref);
+      });
     };
   }, [isMobile]);
 
-
-
-  /* ---------------- render ---------------- */
   return (
     <>
-      {/* ---------- main section ---------- */}
       <Box
         sx={{
           backgroundColor: "#FFEFF4",
@@ -138,14 +112,13 @@ const ProcessSteps = () => {
           },
         }}
       >
-        {/* ---------- heading ---------- */}
         <Typography
           variant="h4"
           gutterBottom
           sx={{
             fontSize: { xs: 28, sm: 36, md: 50 },
             mb: 4,
-            color: '#000'
+            color: "#000",
           }}
         >
           <span
@@ -171,7 +144,6 @@ const ProcessSteps = () => {
           </span>
         </Typography>
 
-        {/* ---------- steps container ---------- */}
         <Box
           sx={{
             display: "flex",
@@ -180,7 +152,6 @@ const ProcessSteps = () => {
             alignItems: "flex-start",
           }}
         >
-          {/* decorative 'V' only on desktop */}
           {!isMobile && (
             <Box
               sx={{
@@ -197,7 +168,6 @@ const ProcessSteps = () => {
             </Box>
           )}
 
-          {/* steps list */}
           <Box
             sx={{
               display: "flex",
@@ -210,10 +180,15 @@ const ProcessSteps = () => {
               <Box
                 key={step.key}
                 data-key={step.key}
-                ref={(el) => (stepRefs.current[i] = el)}
-                sx={{ flex: 1, position: "relative", scrollMarginTop: "30vh" }}
+                ref={(el) => (stepRefs.current[i] = el as HTMLDivElement | null)}
+                sx={{
+                  flex: 1,
+                  position: "relative",
+                  scrollMarginTop: "40vh",
+                  mb: isMobile ? 6 : 0,
+                }}
               >
-                {/* tiny “Step X” label */}
+
                 <Typography
                   variant="body2"
                   sx={{
@@ -228,7 +203,6 @@ const ProcessSteps = () => {
                   {activeStep === step.key ? step.stepNumber : " "}
                 </Typography>
 
-                {/* card */}
                 <Paper
                   elevation={0}
                   onClick={() => setActiveStep(step.key)}
@@ -267,7 +241,6 @@ const ProcessSteps = () => {
         </Box>
       </Box>
 
-      {/* ---------- marquee ---------- */}
       <Box
         sx={{
           overflow: "hidden",
@@ -297,4 +270,3 @@ const ProcessSteps = () => {
 };
 
 export default ProcessSteps;
-
