@@ -849,6 +849,25 @@ const Services = () => {
         ) : (
           // 🖥 Desktop View - unchanged
           <Box
+  sx={{
+    position: "relative",
+    width: "100%",
+    overflow: "hidden",
+    py: { xs: 4, md: 8 },
+    "::before": {
+      content: '""',
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      backgroundImage:
+        "repeating-linear-gradient(to bottom, transparent, transparent 34px, #EDEDED 34px, #EDEDED 35px)", // Adjust spacing as per design
+      zIndex: 0,
+    },
+  }}
+>
+          <Box
             sx={{
               display: "flex",
               flexWrap: "wrap",
@@ -935,6 +954,7 @@ const Services = () => {
                 </Box>
               </Box>
             ))}
+          </Box>
           </Box>
         )}
 
