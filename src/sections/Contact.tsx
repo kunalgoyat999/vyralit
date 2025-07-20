@@ -72,11 +72,7 @@ const ContactSection = forwardRef<HTMLDivElement, Props>((props, ref) => {
     if (!formData.phone.trim()) {
       newErrors.phone = "Phone number is required";
       isValid = false;
-    } else if (!/^\d{10}$/.test(formData.phone)) {
-      newErrors.phone = "Enter a valid 10-digit number";
-      isValid = false;
-    }
-
+    } 
     setErrors(newErrors);
     if (!isValid) return;
 
@@ -288,6 +284,7 @@ const ContactSection = forwardRef<HTMLDivElement, Props>((props, ref) => {
               <PhoneInput
                 country={"in"}
                 value={formData.phone}
+                // helperText={errors.mail}
                 onChange={(phone) => setFormData({ ...formData, phone })}
                 inputProps={{
                   name: "",
@@ -302,7 +299,7 @@ const ContactSection = forwardRef<HTMLDivElement, Props>((props, ref) => {
                   border: "none",
                   borderBottom: "1px solid rgba(0, 0, 0, 0.42)",
                   borderRadius: 0,
-                  fontSize: "1.4rem",
+                  fontSize: "1.1rem",
                   fontWeight: 400,
                   color: "#555",
                   paddingLeft: "50px",

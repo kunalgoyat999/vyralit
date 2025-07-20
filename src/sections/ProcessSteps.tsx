@@ -262,7 +262,7 @@ const ProcessSteps = () => {
             fontSize: { xs: 40, sm: 70, md: 110, lg: 135 },
           }}
         >
-          LETS VYRAL IT
+          LET'S VYRAL IT
         </Typography>
       </Box>
     </>
