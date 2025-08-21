@@ -91,13 +91,13 @@ const SlantedBanner = ({ angle = -15, light = false, isSticky = false }) => {
     "SEO",
     "DESIGN",
     "SOCIAL",
-    "BRNDING",
+    "BRANDING",
     "PERFORMANCE",
     "GROWTH",
     "SEO",
     "DESIGN",
     "SOCIAL",
-    "BRNDING",
+    "BRANDING",
   ];
   const scroll = keyframes` 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); }`;
   const repeatedItems = [...items, ...items, ...items, ...items, ...items];

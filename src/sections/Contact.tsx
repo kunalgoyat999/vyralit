@@ -186,7 +186,7 @@ const ContactSection = forwardRef<HTMLDivElement, Props>((props, ref) => {
             {[
               {
                 icon: <CallIcon sx={{ color: "#FF217D" }} />,
-                text: "+91 976 976 0585",
+                text: "+91 95552 22383",
               },
               {
                 icon: <MailOutlineIcon sx={{ color: "#FF217D" }} />,
