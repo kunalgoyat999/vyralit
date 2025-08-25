@@ -186,7 +186,7 @@ const ContactSection = forwardRef<HTMLDivElement, Props>((props, ref) => {
             {[
               {
                 icon: <CallIcon sx={{ color: "#FF217D" }} />,
-                text: "+91 95552 22383",
+                text: "+91 976 976 9585",
               },
               {
                 icon: <MailOutlineIcon sx={{ color: "#FF217D" }} />,
@@ -198,7 +198,7 @@ const ContactSection = forwardRef<HTMLDivElement, Props>((props, ref) => {
               },
               {
                 icon: <LocationOnIcon sx={{ color: "#FF217D" }} />,
-                text: "809, Sector 21 E , Gurugram, 122016",
+                text: "Gurugram, Haryana",
               },
             ].map(({ icon, text }, index, array) => (
               <Box
